@@ -4,7 +4,7 @@
 
         function printHome($recetas){
             include 'templates/header.php';
-            include 'templates/home.php';
+            include 'templates/sections.php';
             printHome();
 
             echo"<h3><em>Listado de recetas</em></h3>";
@@ -12,8 +12,8 @@
             foreach($recetas as $receta) {
                 echo "<li class='list-group-item'>
                         $receta->nombre | $receta->id_categoria | $receta->calorias 
-                        <a class='btn btn-primary btn-sm' href='detallar/$receta->id'> VER DETALLES</a> 
-                    </li>"; //el link tiene forma de boton con esas clases de bootstrap
+                        <a class='btn btn-primary btn-sm'  name='linkDetalles' href='detallar/$receta->id'> VER DETALLES</a> 
+                    </li>"; 
             }
             echo "</ul>";
 
@@ -21,9 +21,25 @@
             
         }
 
+        function printDetalles($detalles){
+            include 'templates/header.php';
+            foreach($detalles as $detalle) {
+                echo "<li class='list-group-item'>
+                       nombre: $detalle->nombre | categoria: $detalle->id_categoria | calorias: $detalle->calorias | instrucciones: $detalle->instrucciones 
+                        <a class='btn btn-primary btn-sm' href='detallesRecetas'> Volver</a> 
+                    </li>"; 
+            }
+            echo "</ul>";
+            include 'templates/footer.php';
+
+
+
+
+        }
+
         function printCategorias($categorias){
             include 'templates/header.php';
-            include 'templates/home.php';  //capaz hacer un sections y agrupar todo
+            include 'templates/sections.php';  
             printPagCategorias();
 
             echo"<h3><em>Listado de categorias</em></h3>";
@@ -31,7 +47,7 @@
             foreach($categorias as $categoria) {
                 echo "<li class='list-group-item'>
                         $categoria->nombre 
-                        <a class='btn btn-primary btn-sm' href='listarRecetas/$categoria->id'> Ver recetas</a> 
+                        <a class='btn btn-primary btn-sm' href='listarRecetas/$categoria->id'> Ver Recetas de esta categoria</a> 
                     </li>"; //el link tiene forma de boton con esas clases de bootstrap
             }
             echo "</ul>";
@@ -47,7 +63,11 @@
         function printAdmin($recetas){
             include 'templates/header.php';
             echo "aca va el login";
+            include "templates/sections.php";
+            printAdminTab();
             include 'templates/form_receta.php';
+
+           
             
             echo "<h3> Recetas</h3>";
             //crea la lista en la linea 13 poner el nombre que se corresponde con el nombre que esta en la bbdd
@@ -64,6 +84,36 @@
             include 'templates/footer.php';
 
         }
+
+        function printAdminCategorias($categorias){
+            include 'templates/header.php';
+            include "templates/sections.php";
+            printAdminTab();
+            include 'templates/form_categoria.php';
+
+            echo "<h3> Categorias</h3>";
+            //crea la lista en la linea 13 poner el nombre que se corresponde con el nombre que esta en la bbdd
+            echo "<ul class='list-group mt-2'>";
+            foreach($categorias as $categoria) {
+                echo "<li class='list-group-item'>
+                        $categoria->nombre | $categoria->id | $categoria->descripcion 
+                        <a class='btn btn-danger btn-sm' href='eliminarCategoria/$categoria->id'>ELIMINAR</a> 
+                        <a class='btn btn-primary btn-sm' href='editarCategoria/$categoria->id'>Editar</a> 
+                    </li>"; //el link tiene forma de boton con esas clases de bootstrap
+            }
+            echo "</ul>";
+
+            include 'templates/footer.php';
+
+        }
+
+       /*  function printFormUpdateRecetas(){
+            include 'templates/header.php';
+            include "templates/sections.php";
+            include 'templates/formUpdate_receta.php';
+            include 'templates/footer.php';
+
+        } */
 
     }
    

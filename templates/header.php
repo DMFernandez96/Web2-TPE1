@@ -35,6 +35,6 @@
 
     </header>
 
-    <main class="container">
+    <main class="container ml-2">
 
 

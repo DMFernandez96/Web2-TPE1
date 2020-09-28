@@ -50,4 +50,10 @@ class CategoriaModel{
         $query->execute([$id]);
   }
 
+  function update($id){
+    $query = $this->db->prepare('UPDATE FROM categoria WHERE id = ?');
+    $query->execute([$id]);
+
+  }
+
 }
