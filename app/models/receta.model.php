@@ -69,8 +69,8 @@ class RecetaModel{
         $query->execute([$id]);
   }
 
-  function update($nombre, $ing, $cal, $inst, $id_categ, $id){
-    $query = $this->db->prepare("UPDATE receta SET nombre= '$nombre', ingredientes= '$ing', calorias= '$cal', instrucciones= '$inst', id_categoria='$id_categ' WHERE id = $id");
+  function update($nombre, $ing, $cal, $inst, $id_categ){
+    $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria=? WHERE id = ?");
     $query->execute([$nombre, $ing, $cal, $inst, $id_categ]);
 
   }

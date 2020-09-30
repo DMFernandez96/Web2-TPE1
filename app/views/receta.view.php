@@ -1,23 +1,18 @@
 <?php
-   
+    
+    require_once "./libs/smarty/Smarty.class.php"; // ./ pq estoy adentro de view. con eso salgo
     class RecetaView{
 
+        function imprimirError($mensaje){
+            echo $mensaje;
+        }
+
         function printHome($recetas){
-            include 'templates/header.php';
-            include 'templates/sections.php';
-            printHome();
 
-            echo"<h3><em>Listado de recetas</em></h3>";
-            echo "<ul class='list-group mt-2'>";
-            foreach($recetas as $receta) {
-                echo "<li class='list-group-item'>
-                        $receta->nombre | $receta->id_categoria | $receta->calorias 
-                        <a class='btn btn-primary btn-sm'  name='linkDetalles' href='detallar/$receta->id'> VER DETALLES</a> 
-                    </li>"; 
-            }
-            echo "</ul>";
-
-            include 'templates/footer.php';
+            $smarty = new Smarty();
+            $smarty->assign('titulo_s',"Recetas");
+            $smarty->assign('recetas_s', $recetas);
+            $smarty->display('templates/home.tpl'); // muestro el template
             
         }
 
@@ -56,9 +51,7 @@
 
         }
 
-        function imprimirError($mensaje){
-            echo $mensaje;
-        }
+      
 
         function printAdmin($recetas){
             include 'templates/header.php';
@@ -68,7 +61,6 @@
             include 'templates/form_receta.php';
 
            
-            
             echo "<h3> Recetas</h3>";
             //crea la lista en la linea 13 poner el nombre que se corresponde con el nombre que esta en la bbdd
             echo "<ul class='list-group mt-2'>";
@@ -106,7 +98,7 @@
             include 'templates/footer.php';
 
         }
-
+    
        /*  function printFormUpdateRecetas(){
             include 'templates/header.php';
             include "templates/sections.php";
@@ -115,5 +107,5 @@
 
         } */
 
-    }
+    }    
    

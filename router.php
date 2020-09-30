@@ -51,7 +51,7 @@
             $id= $params[1];
             $controller->deleteRecipe($id);
             break;
-        case 'editarReceta': //seguirlo!hace aparecer 
+       /*  case 'editarReceta': //seguirlo!hace aparecer 
             $controller= new RecetaController();
             $controller->showUpdateFormRecetas();
             break;
@@ -59,7 +59,7 @@
             $controller= new RecetaController();
             $id= $params[1];
             $controller->updateReceta($id);
-            break;
+            break; */
 
         // CATEGORIA-- ADMIN
         case 'insertarCategoria': //boton agregar
