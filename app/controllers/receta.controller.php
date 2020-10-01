@@ -12,17 +12,21 @@
         }
 
         function mostrarRecetas(){
-
             $recetas= $this->model-> getAll();
-               //actualizo la vista
-            /* $this->view->imprimirRecetas($recetas); */
-
+            
             $this->view->printHome($recetas);
         }
+           
 
-        function showDetallesReceta(){
-            $detalles= $this->model->getDetalles();
-            $this->view->printDetalles($detalles);
+        function showDetallesReceta($id){
+            $detalles= $this->model->getDetalles($id);
+            if($detalles) {
+                $this->view->printDetalles($detalles);
+            }
+            else {
+                $this->view->printError("No existe la receta");
+            }
+            /* header("Location: " . BASE_URL. "detalles/$id"); */ 
         }
 
 /* ********************************************************* ADMIN  ******************************************************* */
@@ -39,7 +43,7 @@
         
             // verifico campos obligatorios
             if (empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categoria)){
-                $this->view->imprimirError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios");
                 die();
             }
             
@@ -52,7 +56,7 @@
                 header("Location: " . BASE_URL. "admin");
             }  
             else { //si no pudo insertar muestra msj de error
-                $this->view->imprimirError("No pudo insertar la receta");
+                $this->view->printError("No pudo insertar la receta");
             }
         }
 
@@ -80,7 +84,7 @@
             $categActualizado = $_POST['categoriaActualizado'];
 
             if (empty($nombreActualizado) || empty($ingredientesActualizado) || empty($instruccionesActualizado) || empty($categActualizado)){
-                $this->view->imprimirError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios");
                 die();
             }
 

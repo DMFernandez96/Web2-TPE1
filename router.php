@@ -21,15 +21,17 @@
             $controller= new RecetaController();
             $controller->mostrarRecetas();
             break;
-        case 'detallar':
+        case 'detalles':
             $controller= new RecetaController();
-            $controller->showDetallesReceta();
+            $id= $params[1];
+            $controller->showDetallesReceta($id);
             break;
 
         case 'categorias': //2da pag publica. muestra lista de categ
             $controller= new CategoriaController();
             $controller->showCategorias();
             break;
+
         case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)
             $controller= new RecetaController();
             $controller->mostrarRecetasAdmin();
@@ -42,6 +44,7 @@
             $controller= new CategoriaController();
             $controller->showCategoriasAdmin(); 
             break;
+
         case 'insertarReceta': //form de admin. boton agregar
             $controller= new RecetaController();
             $controller->agregarReceta();

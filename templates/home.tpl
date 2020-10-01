@@ -10,9 +10,9 @@
     <ul class='list-group mt-2'>
     {foreach from=$recetas_s item=receta} 
         <li class='list-group-item'>
-                {$receta->nombre} | {$receta->id_categoria} | {$receta->calorias} 
-                <a class='btn btn-primary btn-sm'  name='linkDetalles' href='detallar/$receta->id'> VER DETALLES</a> 
-            </li> 
+            {$receta->nombre} | {$receta->id_categoria} | {$receta->calorias} 
+            <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a> 
+        </li> 
     {/foreach}
     </ul>
 {include file="footer.tpl"}

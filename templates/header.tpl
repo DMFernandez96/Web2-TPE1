@@ -34,4 +34,4 @@
 
     </header>
 
-    <main class="container ml-2">
+    <main class="container justify-content-center align-items-center vh-100">

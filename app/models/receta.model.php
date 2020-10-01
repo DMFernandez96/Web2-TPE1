@@ -36,15 +36,13 @@ class RecetaModel{
         return $receta;
     }
 
-    function getDetalles(){
+    function getDetalles($id){
 
-      $query = $this->db->prepare('SELECT receta.nombre, receta.ingredientes, calorias, instrucciones, id_categoria FROM receta WHERE id= ?'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
-      $query->execute();
-
-      $detalles = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de recetas
+      $query = $this->db->prepare('SELECT * FROM receta WHERE id = ?'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+      $query->execute([$id]);
+      $detalles = $query->fetch(PDO::FETCH_OBJ); // arreglo de col de recetas
 
       return $detalles;
-
     }
 
     /* ***************************************    ADMIN    ************************************************************************ */
