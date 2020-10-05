@@ -1,12 +1,12 @@
 <?php
     
-    require_once "./libs/smarty/Smarty.class.php"; // ./ pq estoy adentro de view. con eso salgo
+    include_once "./libs/smarty/Smarty.class.php"; // ./ pq estoy adentro de view. con eso salgo
     class RecetaView{
 
         function printError($mensaje){
             $smarty = new Smarty();
             $smarty->assign('msg', $mensaje);
-            $smarty->display('templates/error.tpl');
+            $smarty->display('./templates/error.tpl');
             
         }
 /* *************************************************    HOME    ***************************************************** */
@@ -15,7 +15,7 @@
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Recetas");
             $smarty->assign('recetas_s', $recetas);
-            $smarty->display('templates/home.tpl'); // muestro el template
+            $smarty->display('./templates/home.tpl'); // muestro el template
             
         }
 
@@ -24,7 +24,7 @@
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Detalles");
             $smarty->assign('receta_s', $detalles);
-            $smarty->display('./templates/detalles.tpl');
+            $smarty->display('templates/detalles.tpl');
         }
 
 /* **********************************************    CATEGORIAS    ************************************************** */
@@ -37,13 +37,21 @@
 
         }
 
+        function printRecetasFiltradas($recetas){
+                $smarty = new Smarty ();
+                $smarty->assign('titulo_s' , "Lista de recetas pertenecientes a esta categoria");
+                $smarty->assign('recetas' , $recetas);
+                $smarty->display('./templates/recetasFiltradas.tpl');                
+        }
+
+
 /* *********************************************    ADMINISTRADOR   ************************************************** */
 
         function printAdmin($recetas){
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Administrador-Recetas");
             $smarty->assign('recetas_s', $recetas);
-            $smarty->display('templates/admin.tpl'); 
+            $smarty->display('./templates/admin.tpl'); 
 
         }
 
@@ -51,7 +59,7 @@
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Administrador-Categorias");
             $smarty->assign('categorias_s', $categorias);
-            $smarty->display('templates/adminCategorias.tpl'); // muestro el template
+            $smarty->display('./templates/adminCategorias.tpl'); // muestro el template
         }
 
         /*  -----------------   EDITAR   ------------------------- */

@@ -39,9 +39,7 @@
                     <input name="categoria" type="number" class="form-control">
                 </div>
             </div>
-
         </div>
-
 
         <button type="submit" class="btn btn-primary">Guardar!</button>
     </form>

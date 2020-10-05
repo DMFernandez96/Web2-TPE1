@@ -19,6 +19,24 @@
             $this->view->printCategorias($categorias);
         }
 
+       
+          function showFiltroCategorias($idCategoria){
+
+            /* $categorias=$this->model->getAll();
+            $this->view->printCategorias($categorias); */ //imprimo la lista de cat
+            $recetasFiltradas = $this->model->getRecetasFiltradas($idCategoria);
+            $this->view->printRecetasFiltradas($recetasFiltradas); //lista filtrada de recetas
+
+           /*  $recetas = $this->model->getRecetasFiltradas($id);
+            if($recetas){
+                $this->view->printRecetasFiltradas($recetas);
+            }
+            else{
+                $this->view->printError("Aun no hay recetas en esta categoria");
+            } */
+
+        }
+
         /* ******************************* ADMIN  ********************************************************* */
         function showCategoriasAdmin(){
             $categorias= $this->model-> getAll();
@@ -31,7 +49,7 @@
             $descripcion= $_POST['descripcion'];
 
             if (empty($nombre) || empty($descripcion) ){
-                $this->view->imprimirError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios");
                 die();
             }
 
@@ -41,9 +59,8 @@
                 header("Location: " . BASE_URL. "adminCategorias");
             }  
             else { //si no pudo insertar muestra msj de error
-                $this->view->imprimirError("No pudo insertar la categoria");
+                $this->view->printError("No pudo insertar la categoria");
             }
-
 
         }
 

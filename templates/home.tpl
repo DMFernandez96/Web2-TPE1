@@ -6,14 +6,33 @@
         <footer class="blockquote-footer">Chef <cite title="Ferran Adrià">Ferran Adrià</cite></footer>
     </blockquote>
 </div>
- <h3><em>Listado de recetas</em></h3>
-    <ul class='list-group mt-2'>
+ <h3><em>Recetas</em></h3>
+ {*    <ul class='list-group mt-2'>
     {foreach from=$recetas_s item=receta} 
         <li class='list-group-item'>
             {$receta->nombre} | {$receta->id_categoria} | {$receta->calorias} 
             <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a> 
         </li> 
     {/foreach}
-    </ul>
+    </ul> *}
+
+    <table class="table ">
+    <thead class="thead-dark">
+        <tr class="">
+            <th>nombre </th>
+            <th>categoria </th>
+            <th>calorias</th>
+            <th>Detalles</th>
+        </tr> 
+    </thead>
+    {foreach from=$recetas_s item=receta}  
+        <tr>
+            <td>{$receta->nombre}</td>
+            <td>{$receta->categoria}</td>
+            <td>{$receta->calorias}</td>
+            <td> <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a></td>
+        </tr>
+    {/foreach}
+</table>
 {include file="footer.tpl"}
 

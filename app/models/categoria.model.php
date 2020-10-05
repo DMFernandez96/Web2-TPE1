@@ -32,6 +32,16 @@ class CategoriaModel{
     return $categoria;
     }
 
+
+    function getRecetasFiltradas($idCategoria){ //id de la categoria
+       /*  $query = $this->db-> prepare('SELECT categoria.id, receta.id_categoria,receta.nombre FROM categoria INNER JOIN receta ON receta.id_categoria = categoria.id WHERE receta.id_categoria=?'); */
+        $query = $this->db-> prepare('SELECT * FROM receta WHERE id_categoria=?');
+        $query->execute([$idCategoria]);
+        $recetas= $query->fetchAll(PDO::FETCH_OBJ);
+        
+        return $recetas; //arr de las recetas de esa categoria
+      }
+
     /* ***********  inserta la categoria a la db  ************* */
     function insert($nombre, $descripcion) {
 

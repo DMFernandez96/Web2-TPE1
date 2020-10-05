@@ -31,6 +31,16 @@
             $controller= new CategoriaController();
             $controller->showCategorias();
             break;
+        case 'listarRecetas': //btn en pag categorias. FILTRO
+            $controller= new CategoriaController();
+            $id= $params[1];
+            $controller-> showFiltroCategorias($id);
+            break;
+        
+   /*      case 'auth':
+            $controller= new AuthController();
+            $controller->showLogin();
+            break; */
 
         case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)
             $controller= new RecetaController();
@@ -39,7 +49,7 @@
         case 'adminRecetas': //link dentro de admin para ABM de recetas
             $controller= new RecetaController();
             $controller->mostrarRecetasAdmin();
-        break;
+            break;
         case 'adminCategorias': //link dentro de admin para ABM de categorias
             $controller= new CategoriaController();
             $controller->showCategoriasAdmin(); 
@@ -75,6 +85,9 @@
                 $controller->deleteCategoria($id);
                 break; 
         case 'editarCategoria':  //form editar categoria
+           /*  $controller= new CategoriaController();
+            $id= $params[1];
+            $controller->showEditarCategoria($id); */
           
             break;
         case 'actualizarCategoria':

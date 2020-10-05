@@ -26,8 +26,10 @@
             else {
                 $this->view->printError("No existe la receta");
             }
-            /* header("Location: " . BASE_URL. "detalles/$id"); */ 
+           /*  header("Location: " . BASE_URL. "detalles/$id");  */
         }
+
+       
 
 /* ********************************************************* ADMIN  ******************************************************* */
             /**

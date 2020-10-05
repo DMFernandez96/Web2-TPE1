@@ -27,7 +27,7 @@ class RecetaModel{
     function getAll() { //es como si antes tuviera la palabra public, que es por default en php (la puedo llamar desde otros .php)
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('SELECT * FROM receta'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+        $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
         $query->execute(); //lo hago!
 
         // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
@@ -44,6 +44,15 @@ class RecetaModel{
 
       return $detalles;
     }
+
+    function getRecetasFiltradas($idCategoria){ //id de la categoria
+      $query = $this->database-> prepare('SELECT categoria.id, receta.id_categoria,receta.nombre FROM categoria INNER JOIN receta ON receta.id_categoria = categoria.id WHERE receta.id_categoria=?');
+      $query->execute([$idCategoria]);
+      $recetas= $query->fetchAll(PDO::FETCH_OBJ);
+      
+      return $recetas; //arr de las recetas de esa categoria
+    }
+
 
     /* ***************************************    ADMIN    ************************************************************************ */
 
