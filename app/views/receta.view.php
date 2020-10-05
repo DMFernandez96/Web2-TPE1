@@ -1,6 +1,6 @@
 <?php
     
-    include_once "./libs/smarty/Smarty.class.php"; // ./ pq estoy adentro de view. con eso salgo
+    require_once ("./libs/smarty/Smarty.class.php"); // ./ pq estoy adentro de view. con eso salgo
     class RecetaView{
 
         function printError($mensaje){

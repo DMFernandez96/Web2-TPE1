@@ -29,6 +29,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="admin">Admin</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="login">Login</a>
+                    </li>
                 </ul>
             </div>
         </nav>

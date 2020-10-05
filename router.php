@@ -1,6 +1,7 @@
 <?php
     include_once 'app/controllers/receta.controller.php';
     include_once 'app/controllers/categoria.controller.php';
+    include_once 'app/controllers/auth.controller.php';
 
 
     // defino la base url para la construccion de links con urls semánticas
@@ -42,6 +43,14 @@
             $controller->showLogin();
             break; */
         /* *********************************    ADMIN    ************************************************** */
+        case 'login':
+            $controller= new AuthController();
+            $controller->showLogin();
+            break;
+        case 'verificarUsuario':
+            $controller= new AuthController();
+            $controller->verifyUser();
+            break;
 
         
         case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)
@@ -56,7 +65,7 @@
             $controller= new CategoriaController();
             $controller->showCategoriasAdmin(); 
             break;
-            
+
         //RECETAS-- ADMIN
         case 'insertarReceta': //form de admin. boton agregar
             $controller= new RecetaController();
