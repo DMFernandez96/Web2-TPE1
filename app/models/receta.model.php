@@ -36,11 +36,11 @@ class RecetaModel{
         return $receta;
     }
 
+    /* ------------   OBTENER RECETA POR ID   ------------ */
     function getDetalles($id){
-
-      $query = $this->db->prepare('SELECT * FROM receta WHERE id = ?'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+      $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id) WHERE receta.id=?'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
       $query->execute([$id]);
-      $detalles = $query->fetch(PDO::FETCH_OBJ); // arreglo de col de recetas
+      $detalles = $query->fetch(PDO::FETCH_OBJ); // una receta
 
       return $detalles;
     }
@@ -76,9 +76,9 @@ class RecetaModel{
         $query->execute([$id]);
   }
 
-  function update($nombre, $ing, $cal, $inst, $id_categ){
-    $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria=? WHERE id = ?");
-    $query->execute([$nombre, $ing, $cal, $inst, $id_categ]);
+  function update($nombre, $ing, $cal, $inst, $id_categ, $id){
+    $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?");
+    $query->execute([$nombre, $ing, $cal, $inst, $id_categ, $id]);
 
   }
 

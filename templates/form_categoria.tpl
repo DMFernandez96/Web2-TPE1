@@ -1,3 +1,4 @@
+
 <div class="formulario col-md-8">
 <h1>Agregar categoria</h1>
 <!-- formulario de alta de categoria -->

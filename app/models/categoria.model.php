@@ -18,18 +18,28 @@ class CategoriaModel{
     }
 
 
-    /* ***********  devuelve las categorias de la db  ************* */
+    /* ***********  devuelve todas las categorias de la db  ************* */
     
     function getAll() { //es como si antes tuviera la palabra public, que es por default en php (la puedo llamar desde otros .php)
 
-    // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-    $query = $this->db->prepare('SELECT * FROM categoria'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
-    $query->execute(); //lo hago!
+      // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+      $query = $this->db->prepare('SELECT * FROM categoria'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+      $query->execute(); 
 
-    // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
-    $categoria = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de recetas
+      // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
+      $categorias = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de recetas
 
-    return $categoria;
+      return $categorias;
+    }
+
+/* --------------   OBTENER UNA CATEGORIA POR ID  ------------------ */
+    function getCategoria($id){
+      $query = $this->db->prepare('SELECT * FROM categoria WHERE id=?'); 
+      $query->execute([$id]); 
+
+      $categoria = $query->fetch(PDO::FETCH_OBJ); 
+
+      return $categoria; 
     }
 
 
@@ -41,6 +51,10 @@ class CategoriaModel{
         
         return $recetas; //arr de las recetas de esa categoria
       }
+
+
+
+      /* ***********************************************     ADMIN       ******************************************************* */
 
     /* ***********  inserta la categoria a la db  ************* */
     function insert($nombre, $descripcion) {
@@ -59,11 +73,11 @@ class CategoriaModel{
         $query = $this->db->prepare('DELETE FROM categoria WHERE id = ?');
         $query->execute([$id]);
   }
-
-  function update($id){
-    $query = $this->db->prepare('UPDATE FROM categoria WHERE id = ?');
-    $query->execute([$id]);
-
+  
+  /* ************  actualiza categoria   ********************** */
+  function update($nombre, $descripcion, $id){
+    $query = $this->db->prepare('UPDATE categoria SET nombre = ?, descripcion = ? WHERE id = ?');
+    $query->execute([$nombre, $descripcion, $id]);
   }
 
 }

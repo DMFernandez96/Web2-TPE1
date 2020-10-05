@@ -15,7 +15,6 @@
 
             $categorias= $this->model-> getAll();
             //actualizo la vista
-            /* $this->view->printAdminCategorias($categorias); */
             $this->view->printCategorias($categorias);
         }
 
@@ -48,7 +47,7 @@
             $nombre= $_POST['nombre'];
             $descripcion= $_POST['descripcion'];
 
-            if (empty($nombre) || empty($descripcion) ){
+            if (empty($nombre)){
                 $this->view->printError("Faltan datos obligatorios");
                 die();
             }
@@ -69,9 +68,27 @@
             header("Location: " . BASE_URL. "adminCategorias"); 
         }
 
+        
+/* ------------------  EDITAR  ------------------------- */
+        function showFormEditarCategoria($id){
+            $categoria=$this->model->getCategoria($id);
+            $this->view->printFormEditarCategoria($categoria);
+        }
+
         function updateCategoria($id){
-            $this->model->update($id);
-            header("Location: " . BASE_URL); 
+
+            $cat_id = $id;
+            $nombre= $_POST['nombreActualizado'];
+            $descripcion = $_POST['descripcionActualizado'];
+
+            if (empty($nombre) || empty($cat_id)){
+                $this->view->printError("Faltan datos obligatorios");
+                die();
+            }
+
+            $this->model->update($nombre, $descripcion, $cat_id);
+            //actualizo la vista
+            header("Location: ".BASE_URL."adminCategorias");
         }
     }
             

@@ -1,17 +1,14 @@
 {include 'templates/header.tpl'}
 
-{* <h1> {$titulo_s} </h1> *}
-
-<h2> {$receta_s->nombre}</h2>
+<h2 class="mt-5 mb-5 text-center"> {$receta_s->nombre|upper}</h2>
 <div class="row"> 
-    <div class="col-4">
-        <p> Categoria a la que pertenece: {$receta_s->id_categoria}</p>
+    <div class="col-4">  
         <h4> Calorias (por porción):</h4>
         <p> {$receta_s->calorias}</p>
         <h4> Categoria de receta:</h4>
-        <p> {$receta_s->id_categoria}</p>
-
+        <p> {$receta_s->categoria}</p>
     </div>
+    
     <div class="col-8">
         <h4> Receta paso a paso:</h4>
         <p> {$receta_s->instrucciones} </p>

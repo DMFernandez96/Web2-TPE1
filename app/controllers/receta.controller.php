@@ -2,6 +2,8 @@
     include_once 'app/models/receta.model.php';
     include_once 'app/views/receta.view.php';
 
+    include_once 'app/models/categoria.model.php';
+
     class RecetaController{
         private $model;
         private $view;
@@ -9,6 +11,8 @@
         function __construct(){
             $this->model = new RecetaModel();
             $this->view = new RecetaView();
+
+           /*  $this->categoriaModel =new CategoriaModel(); */
         }
 
         function mostrarRecetas(){
@@ -73,27 +77,41 @@
         function mostrarRecetasAdmin(){
 
             $recetas= $this->model-> getAll();
+           /*  $categorias=$this->CategoriaModel->getAll(); */
                //actualizo la vista
-            $this->view->printAdmin($recetas);
+            $this->view->printAdmin($recetas /* , $categorias */);
 
         }
 
-        function updateReceta($id){
-            $nombreActualizado = $_POST['nombreActualizado'];
-            $ingredientesActualizado = $_POST['ingredientesActualizado'];
-            $caloriasActualizado = $_POST['caloriasActualizado'];
-            $instruccionesActualizado = $_POST['instruccionesActualizado'];
-            $categActualizado = $_POST['categoriaActualizado'];
+        /* ------------------  EDITAR  ------------------------- */
+        function showFormEditarReceta($id){
+            $receta=$this->model->getDetalles($id);
+            $this->view->printFormEditarReceta($receta);
+        }
 
-            if (empty($nombreActualizado) || empty($ingredientesActualizado) || empty($instruccionesActualizado) || empty($categActualizado)){
+        function updateReceta($id){
+            $rec_id = $id;
+            $nombre = $_POST['nombreActualizado'];
+            $ingredientes = $_POST['ingredientesActualizado'];
+            $calorias = $_POST['caloriasActualizado'];
+            $instrucciones = $_POST['instruccionesActualizado'];
+            $categ = $_POST['categoriaActualizado'];
+
+            if (empty($rec_id) || empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categ)){
                 $this->view->printError("Faltan datos obligatorios");
                 die();
             }
 
+            $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id);
 
-            $this->model->update($nombreActualizado, $ingredientesActualizado, $caloriasActualizado, $instruccionesActualizado, $categActualizado,$id);
-            header("Location: " . BASE_URL . "adminRecetas"); 
+            header("Location: " .BASE_URL. "adminRecetas"); 
         }
+
+
+        
+       
+
+        
 
 
 

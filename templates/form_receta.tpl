@@ -21,22 +21,27 @@
             <!-- input calorias -->
             <div class="col-9">
                 <div class="form-group">
-                    <label>Calorias</label>
+                    <label for="calorias">Calorias</label>
                     <input name="calorias" type="number" class="form-control">
                 </div>
             </div>
             <!-- input instrucciones -->
             <div class="col-9">
                 <div class="form-group">
-                    <label>Instrucciones</label>
+                    <label for="instrucciones">Instrucciones</label>
                     <input name="instrucciones" type="text" class="form-control">
                 </div>
             </div>
             <!-- input id categoria -->
             <div class="col-9">
                 <div class="form-group">
-                    <label>Categoria</label>
-                    <input name="categoria" type="number" class="form-control">
+                    <label for="categoria">Categoria</label>
+                    {* <input name="categoria" type="number" class="form-control"> *}
+                    <select name="categoria">
+                        {foreach from=$categorias_s item=categoria}
+                            <option>{$categoria->nombre}</option> 
+                        {/foreach}
+                    </select>
                 </div>
             </div>
         </div>

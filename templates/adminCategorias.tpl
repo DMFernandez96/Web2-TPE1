@@ -1,6 +1,6 @@
  {include file="templates/header.tpl"}
 
-{include file="templates/adminTab.tpl"} 
+{include "templates/adminTab.tpl"} 
 {include 'templates/form_categoria.tpl'}
 
 <h3> {$titulo_s}</h3>
@@ -35,4 +35,4 @@
     {/foreach}
 </table> *}
 
-{include file="templates/footer.tpl"}
+{include "templates/footer.tpl"}

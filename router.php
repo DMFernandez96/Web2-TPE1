@@ -41,7 +41,9 @@
             $controller= new AuthController();
             $controller->showLogin();
             break; */
+        /* *********************************    ADMIN    ************************************************** */
 
+        
         case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)
             $controller= new RecetaController();
             $controller->mostrarRecetasAdmin();
@@ -54,7 +56,8 @@
             $controller= new CategoriaController();
             $controller->showCategoriasAdmin(); 
             break;
-
+            
+        //RECETAS-- ADMIN
         case 'insertarReceta': //form de admin. boton agregar
             $controller= new RecetaController();
             $controller->agregarReceta();
@@ -64,15 +67,16 @@
             $id= $params[1];
             $controller->deleteRecipe($id);
             break;
-       /*  case 'editarReceta': //seguirlo!hace aparecer 
+        case 'editarReceta': //seguirlo!hace aparecer 
             $controller= new RecetaController();
-            $controller->showUpdateFormRecetas();
+            $id= $params[1];
+            $controller->showFormEditarReceta($id);
             break;
         case 'actualizarReceta': //boton del form editar
             $controller= new RecetaController();
             $id= $params[1];
             $controller->updateReceta($id);
-            break; */
+            break; 
 
         // CATEGORIA-- ADMIN
         case 'insertarCategoria': //boton agregar
@@ -85,12 +89,14 @@
                 $controller->deleteCategoria($id);
                 break; 
         case 'editarCategoria':  //form editar categoria
-           /*  $controller= new CategoriaController();
+            $controller= new CategoriaController();
             $id= $params[1];
-            $controller->showEditarCategoria($id); */
-          
+            $controller->showFormEditarCategoria($id);
             break;
-        case 'actualizarCategoria':
+        case 'actualizarCategoria': //boton del form editar
+            $controller= new CategoriaController();
+            $id= $params[1];
+            $controller->updateCategoria($id);
 
         break;
         default:

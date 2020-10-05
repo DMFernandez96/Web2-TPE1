@@ -4,7 +4,7 @@
             <a class="nav-link active" href="adminRecetas">Recetas</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="adminCategorias">Categoras</a>
+            <a class="nav-link" href="adminCategorias">Categorias</a>
         </li>
     </ul>
 </div>

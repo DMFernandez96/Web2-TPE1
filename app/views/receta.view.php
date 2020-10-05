@@ -27,7 +27,7 @@
             $smarty->display('templates/detalles.tpl');
         }
 
-/* **********************************************    CATEGORIAS    ************************************************** */
+/* **********************************************   PAGINA CATEGORIAS    ************************************************** */
 
         function printCategorias($categorias){
             $smarty = new Smarty();
@@ -47,12 +47,12 @@
 
 /* *********************************************    ADMINISTRADOR   ************************************************** */
 
-        function printAdmin($recetas){
+        function printAdmin($recetas/* , $categorias */){
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Administrador-Recetas");
             $smarty->assign('recetas_s', $recetas);
+            $smarty->assign('categorias_s'/* , $categorias */); //para el select
             $smarty->display('./templates/admin.tpl'); 
-
         }
 
         function printAdminCategorias($categorias){
@@ -64,13 +64,20 @@
 
         /*  -----------------   EDITAR   ------------------------- */
     
-       /*  function printFormUpdateRecetas(){
-            include 'templates/header.php';
-            include "templates/sections.php";
-            include 'templates/formUpdate_receta.php';
-            include 'templates/footer.php';
+        function printFormEditarReceta($receta){
+            $smarty = new Smarty();
+            $smarty->assign('titulo_s',"Editar Receta");
+            $smarty->assign('receta_s', $receta);
+           /*  $smarty->assign('categoria_s', $categoria->nombre); */
+            $smarty->display('./templates/formUpdate_receta.tpl');
+        }
 
-        } */
+        function printFormEditarCategoria($categoria){
+            $smarty = new Smarty();
+            $smarty->assign('titulo_s',"Editar categoria");
+            $smarty->assign('categoria_s', $categoria);
+            $smarty->display('./templates/formUpdate_categoria.tpl');
+        }
 
     }    
    
