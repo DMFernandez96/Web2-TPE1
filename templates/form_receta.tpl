@@ -37,10 +37,11 @@
                 <div class="form-group">
                     <label for="categoria">Categoria</label>
                     {* <input name="categoria" type="number" class="form-control"> *}
-                    <select name="categoria">
-                        {foreach from=$categorias_s item=categoria}
-                            <option>{$categoria->nombre}</option> 
+                     <select name="categoria" class="form-control" required>
+                         {foreach from=$categorias_s item=categoria}
+                            <option value="{$categoria->id}">{$categoria->nombre}</option>
                         {/foreach}
+                    
                     </select>
                 </div>
             </div>

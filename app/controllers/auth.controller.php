@@ -22,20 +22,26 @@
             $password= $_POST['password'];
 
             if(empty($mail) || empty($password)){
-               /*  $this->view->printError("Faltan datos obligatorios"); */
-               echo "faltan datos";
+                $this->view->showFormLogin("Faltan datos obligatorios");
                 die();
             }
 
             //obtengo usuario
             $usuario = $this->model->getPorMail($mail);
 
-           //su user existe, y las password cohinciden 
-            if($usuario && password_verify($password, $usuario->password)){ // md5($password) con esto las vuelvo a encriptar para comparar
-                echo "acceso exitoso";
+           //su user existe, y las password coinciden 
+           //hashing.
+            if($usuario && password_verify($password, $usuario->password)){ //con esto las vuelvo a encriptar para comparar
+               
 
+                //inicio sesion
+                session_start();
+                $_SESSION['ID_USER'] = $usuario->id;
+                $_SESSION['EMAIL_USER'] = $usuario->mail;
+
+                header("Location: ". BASE_URL . "admin");
             } else{
-                echo "acceso denegado";
+                
             }
 
         }

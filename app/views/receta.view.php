@@ -3,6 +3,12 @@
     require_once ("./libs/smarty/Smarty.class.php"); // ./ pq estoy adentro de view. con eso salgo
     class RecetaView{
 
+       /*  function  __construct(){ //pueden recibir paramentros
+            $this->smarty= new Smarty;
+            $this->smarty->assing('titulo_s', 'receta');
+ 
+        } */
+
         function printError($mensaje){
             $smarty = new Smarty();
             $smarty->assign('msg', $mensaje);
@@ -47,11 +53,11 @@
 
 /* *********************************************    ADMINISTRADOR   ************************************************** */
 
-        function printAdmin($recetas/* , $categorias */){
+        function printAdmin($recetas, $categorias){
             $smarty = new Smarty();
             $smarty->assign('titulo_s',"Administrador-Recetas");
             $smarty->assign('recetas_s', $recetas);
-            $smarty->assign('categorias_s'/* , $categorias */); //para el select
+            $smarty->assign('categorias_s', $categorias); //para el select
             $smarty->display('./templates/admin.tpl'); 
         }
 

@@ -8,11 +8,13 @@
         private $model;
         private $view;
 
+        private $categoriaModel;
+
         function __construct(){
             $this->model = new RecetaModel();
             $this->view = new RecetaView();
 
-           /*  $this->categoriaModel =new CategoriaModel(); */
+            $this->categoriaModel =new CategoriaModel();
         }
 
         function mostrarRecetas(){
@@ -77,9 +79,9 @@
         function mostrarRecetasAdmin(){
 
             $recetas= $this->model-> getAll();
-           /*  $categorias=$this->CategoriaModel->getAll(); */
+            $categorias=$this->categoriaModel->getAll();
                //actualizo la vista
-            $this->view->printAdmin($recetas /* , $categorias */);
+            $this->view->printAdmin($recetas, $categorias);
 
         }
 
