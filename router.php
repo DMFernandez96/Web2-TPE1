@@ -51,6 +51,10 @@
             $controller= new AuthController();
             $controller->verifyUser();
             break;
+        case 'logout':
+            $controller= new AuthController();
+            $controller->logout();
+            break;
 
         
         case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)

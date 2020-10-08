@@ -18,7 +18,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav d-flex w-100">
                     <li class="nav-item active">
                         <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
                         <!-- sr-only screen readers -->
@@ -29,9 +29,13 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="admin">Admin</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="login">Login</a>
-                    </li>
+                    {if isset($smarty.session.EMAIL_USER)} {* para q no se rompa el nav si no esta logueado *}
+                        <li class="nav-item active ml-auto">
+                            {* <a class="nav-link" href="login">Login</a> *}
+                            <a class="nav-link" href="logout">{$smarty.session.EMAIL_USER} (logout)</a>
+                            
+                        </li>
+                    {/if}
                 </ul>
             </div>
         </nav>

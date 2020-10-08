@@ -37,13 +37,28 @@
         }
 
         /* ******************************* ADMIN  ********************************************************* */
+        //barrera de seguridad para el usuario logueado
+        //si esta logueado esta barrera la pasa
+        function checkLogueado(){
+            session_start();
+            if(!isset($_SESSION['ID_USER'])){ //Si no esta logueado
+                header("Location: " .BASE_URL. "login");
+                die(); //me aseguro q no pasa de aca.
+
+            } 
+
+        }
         function showCategoriasAdmin(){
+            $this->checkLogueado();
+
             $categorias= $this->model-> getAll();
             $this->view->printAdminCategorias($categorias); 
 
         }
 
         function addCategoria(){
+            $this->checkLogueado();
+
             $nombre= $_POST['nombre'];
             $descripcion= $_POST['descripcion'];
 
@@ -64,6 +79,8 @@
         }
 
         function deleteCategoria($id){
+            $this->checkLogueado();
+            
             $this->model->remove($id);
             header("Location: " . BASE_URL. "adminCategorias"); 
         }
@@ -71,11 +88,14 @@
         
 /* ------------------  EDITAR  ------------------------- */
         function showFormEditarCategoria($id){
+            $this->checkLogueado();
+
             $categoria=$this->model->getCategoria($id);
             $this->view->printFormEditarCategoria($categoria);
         }
 
         function updateCategoria($id){
+            $this->checkLogueado();
 
             $cat_id = $id;
             $nombre= $_POST['nombreActualizado'];

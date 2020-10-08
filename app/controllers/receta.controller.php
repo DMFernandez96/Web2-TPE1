@@ -15,6 +15,9 @@
             $this->view = new RecetaView();
 
             $this->categoriaModel =new CategoriaModel();
+
+            /* //verifico que el usuario este logueado
+            $this->checkLogueado(); */
         }
 
         function mostrarRecetas(){
@@ -42,6 +45,8 @@
      * Inserta una tarea en el sistema
      */
         function agregarReceta() {
+            //verifico que el usuario este logueado
+            $this->checkLogueado();
 
             $nombre = $_POST['nombre'];
             $ingredientes = $_POST['ingredientes'];
@@ -69,6 +74,9 @@
         }
 
         function deleteRecipe($id){
+             //verifico que el usuario este logueado
+             $this->checkLogueado();
+            
             $this->model->remove($id);
 
             header("Location: " . BASE_URL. "admin"); 
@@ -99,18 +107,22 @@
                 die(); //me aseguro q no pasa de aca.
 
             } 
-                
-
 
         }
 
         /* ------------------  EDITAR  ------------------------- */
         function showFormEditarReceta($id){
+            //verifico que el usuario este logueado
+            $this->checkLogueado();
+
             $receta=$this->model->getDetalles($id);
             $this->view->printFormEditarReceta($receta);
         }
 
         function updateReceta($id){
+            //verifico que el usuario este logueado
+            $this->checkLogueado();
+
             $rec_id = $id;
             $nombre = $_POST['nombreActualizado'];
             $ingredientes = $_POST['ingredientesActualizado'];
