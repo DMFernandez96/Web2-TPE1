@@ -11,11 +11,11 @@
         <input type="password" class="form-control" id="password" name="password">
 
     </div>
-    {* {if $error_s}
+    {if $error_s}
         <div class="alert alert-danger"> 
             {$error_s}
         </div>
-    {/if} *}
+    {/if}
 
     <button type="submit" class="btn btn-primary">Entrar</button>
     </form>

@@ -82,6 +82,7 @@
             $categorias=$this->categoriaModel->getAll();
                //actualizo la vista
             $this->view->printAdmin($recetas, $categorias);
+            
 
         }
 

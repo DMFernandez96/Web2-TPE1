@@ -17,7 +17,7 @@
             $this->view->showFormLogin();
         }
 
-        function verifyUser(){
+         function verifyUser(){
             $mail= $_POST['mail'];
             $password= $_POST['password'];
 
@@ -44,6 +44,6 @@
                 
             }
 
-        }
+        } 
 
     }

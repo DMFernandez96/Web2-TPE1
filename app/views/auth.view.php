@@ -5,7 +5,7 @@ require_once ("./libs/smarty/Smarty.class.php");
 
        function  __construct(){ //pueden recibir paramentros
         $this->smarty= new Smarty;
-        $this->smarty->assing('titulo_s', 'Login');
+        $this->smarty->assign('titulo_s',"login");
 
         }
 
