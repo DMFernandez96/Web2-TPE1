@@ -78,11 +78,29 @@
         //ESTO VA ACA?????
         function mostrarRecetasAdmin(){
 
+            //verifico que el usuario este logueado
+            $this->checkLogueado();
+
+
             $recetas= $this->model-> getAll();
             $categorias=$this->categoriaModel->getAll();
                //actualizo la vista
             $this->view->printAdmin($recetas, $categorias);
             
+
+        }
+
+        //barrera de seguridad para el usuario logueado
+        //si esta logueado esta barrera la pasa
+        function checkLogueado(){
+            session_start();
+            if(!isset($_SESSION['ID_USER'])){ //Si no esta logueado
+                header("Location: " .BASE_URL. "login");
+                die(); //me aseguro q no pasa de aca.
+
+            } 
+                
+
 
         }
 

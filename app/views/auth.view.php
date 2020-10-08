@@ -1,10 +1,11 @@
 <?php
-require_once ("./libs/smarty/Smarty.class.php");
+    require_once ("./libs/smarty/Smarty.class.php");
     class AuthView{
+
         private $smarty;
 
        function  __construct(){ //pueden recibir paramentros
-        $this->smarty= new Smarty;
+        $this->smarty= new Smarty(); //variable smarty q siempre va a estar
         $this->smarty->assign('titulo_s',"login");
 
         }
@@ -15,6 +16,7 @@ require_once ("./libs/smarty/Smarty.class.php");
             $this->smarty->display("./templates/formLogin.tpl");
 
         }
+
 
 
     }

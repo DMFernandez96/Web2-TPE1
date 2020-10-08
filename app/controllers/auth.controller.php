@@ -32,15 +32,16 @@
            //su user existe, y las password coinciden 
            //hashing.
             if($usuario && password_verify($password, $usuario->password)){ //con esto las vuelvo a encriptar para comparar
-               
 
-                //inicio sesion
+                //armo la session del usuario
+                //inicio sesion. Esto mismo lo uso para berificar q el usuario este logueado mas adelante. En los request
                 session_start();
                 $_SESSION['ID_USER'] = $usuario->id;
-                $_SESSION['EMAIL_USER'] = $usuario->mail;
+                $_SESSION['EMAIL_USER'] = $usuario->mail; 
 
                 header("Location: ". BASE_URL . "admin");
             } else{
+                $this->view->showFormLogin("Credenciales invalidas");
                 
             }
 

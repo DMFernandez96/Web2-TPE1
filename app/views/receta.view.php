@@ -1,88 +1,79 @@
-<?php
-    
+<?php 
     require_once ("./libs/smarty/Smarty.class.php"); // ./ pq estoy adentro de view. con eso salgo
     class RecetaView{
 
-       /*  function  __construct(){ //pueden recibir paramentros
-            $this->smarty= new Smarty;
-            $this->smarty->assing('titulo_s', 'receta');
- 
-        } */
+        private $smarty;
+
+        function  __construct(){ //pueden recibir paramentros
+            $this->smarty= new Smarty();
+            $this->smarty->assign('titulo_s',"Recetas");
+            
+        }
 
         function printError($mensaje){
-            $smarty = new Smarty();
-            $smarty->assign('msg', $mensaje);
-            $smarty->display('./templates/error.tpl');
+            $this->smarty->assign('msg', $mensaje);
+            $this->smarty->display('./templates/error.tpl');
             
         }
 /* *************************************************    HOME    ***************************************************** */
         function printHome($recetas){
+            $this->smarty->assign('titulo_s',"Recetas");
+            $this->smarty->assign('recetas_s', $recetas);
+            $this->smarty->display('./templates/home.tpl'); // muestro el template
 
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Recetas");
-            $smarty->assign('recetas_s', $recetas);
-            $smarty->display('./templates/home.tpl'); // muestro el template
             
         }
 
         function printDetalles($detalles){ //id??
-
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Detalles");
-            $smarty->assign('receta_s', $detalles);
-            $smarty->display('templates/detalles.tpl');
+            $this->smarty->assign('titulo_s',"Detalles");
+            $this->smarty->assign('receta_s', $detalles);
+            $this->smarty->display('templates/detalles.tpl');
         }
 
 /* **********************************************   PAGINA CATEGORIAS    ************************************************** */
 
         function printCategorias($categorias){
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Categorias del sitio");
-            $smarty->assign('categorias_s', $categorias);
-            $smarty->display('templates/categorias.tpl'); 
+            $this->smarty->assign('titulo_s',"Categorias del sitio");
+            $this->smarty->assign('categorias_s', $categorias);
+            $this->smarty->display('templates/categorias.tpl'); 
 
         }
 
         function printRecetasFiltradas($recetas){
-                $smarty = new Smarty ();
-                $smarty->assign('titulo_s' , "Lista de recetas pertenecientes a esta categoria");
-                $smarty->assign('recetas' , $recetas);
-                $smarty->display('./templates/recetasFiltradas.tpl');                
+                $this->smarty->assign('titulo_s' , "Lista de recetas pertenecientes a esta categoria");
+                $this->smarty->assign('recetas' , $recetas);
+                $this->smarty->display('./templates/recetasFiltradas.tpl');                
         }
 
 
 /* *********************************************    ADMINISTRADOR   ************************************************** */
 
         function printAdmin($recetas, $categorias){
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Administrador-Recetas");
-            $smarty->assign('recetas_s', $recetas);
-            $smarty->assign('categorias_s', $categorias); //para el select
-            $smarty->display('./templates/admin.tpl'); 
+            $this->smarty->assign('titulo_s',"Administrador-Recetas");
+            $this->smarty->assign('recetas_s', $recetas);
+            $this->smarty->assign('categorias_s', $categorias); //para el select
+            $this->smarty->display('./templates/admin.tpl'); 
         }
 
-        function printAdminCategorias($categorias){
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Administrador-Categorias");
-            $smarty->assign('categorias_s', $categorias);
-            $smarty->display('./templates/adminCategorias.tpl'); // muestro el template
+        function printAdminCategorias($categorias){  
+            $this->smarty->assign('titulo_s',"Administrador-Categorias");
+            $this->smarty->assign('categorias_s', $categorias);
+            $this->smarty->display('./templates/adminCategorias.tpl'); // muestro el template
         }
 
         /*  -----------------   EDITAR   ------------------------- */
     
-        function printFormEditarReceta($receta){
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Editar Receta");
-            $smarty->assign('receta_s', $receta);
+        function printFormEditarReceta($receta){  
+            $this->smarty->assign('titulo_s',"Editar Receta");
+            $this->smarty->assign('receta_s', $receta);
            /*  $smarty->assign('categoria_s', $categoria->nombre); */
-            $smarty->display('./templates/formUpdate_receta.tpl');
+            $this->smarty->display('./templates/formUpdate_receta.tpl');
         }
 
-        function printFormEditarCategoria($categoria){
-            $smarty = new Smarty();
-            $smarty->assign('titulo_s',"Editar categoria");
-            $smarty->assign('categoria_s', $categoria);
-            $smarty->display('./templates/formUpdate_categoria.tpl');
+        function printFormEditarCategoria($categoria){ 
+            $this->smarty->assign('titulo_s',"Editar categoria");
+            $this->smarty->assign('categoria_s', $categoria);
+            $this->smarty->display('./templates/formUpdate_categoria.tpl');
         }
 
     }    
