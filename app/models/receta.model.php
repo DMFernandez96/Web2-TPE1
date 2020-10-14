@@ -1,36 +1,23 @@
 <?php
+include_once 'app/helpers/db.helper.php';
 
 class RecetaModel{
 
     private $db;
+    private $dbHelper;
 
     function __construct(){
+        $this->dbHelper = new DbHelper();
         //conexion a la bbdd
-        $this->db = $this->connect();
+        $this->db = $this->dbHelper->connect();
     }
 
-    /**
-     * Abre conexión a la base de datos;
-     */
-    private function connect() { //es privada para mi. Solo la puedo llamar desde aca (no desde otro .php popr ej)
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_recetas;charset=utf8', 'root', '');
-        //solo en mmodo desarrollo. quiero que pdo me muestre un warning
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    function getAll() { 
 
-        return $db;
-    }
-
-      /**
-     * Devuelve todas las tareas de la base de datos.
-     * getTasks
-     */
-    function getAll() { //es como si antes tuviera la palabra public, que es por default en php (la puedo llamar desde otros .php)
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        
         $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
-        $query->execute(); //lo hago!
+        $query->execute(); 
 
-        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
         $receta = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de recetas
 
         return $receta;
@@ -45,7 +32,7 @@ class RecetaModel{
       return $detalles;
     }
 
-    function getRecetasFiltradas($idCategoria){ //id de la categoria
+    function getRecetasFiltradas($idCategoria){ 
       $query = $this->database-> prepare('SELECT categoria.id, receta.id_categoria,receta.nombre FROM categoria INNER JOIN receta ON receta.id_categoria = categoria.id WHERE receta.id_categoria=?');
       $query->execute([$idCategoria]);
       $recetas= $query->fetchAll(PDO::FETCH_OBJ);
@@ -63,12 +50,10 @@ class RecetaModel{
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
         $query = $this->db->prepare('INSERT INTO receta(nombre, ingredientes, calorias, instrucciones, id_categoria) VALUES (?,?,?,?,?)');
-        return $query->execute([$nombre, $ingredientes, $calorias, $instrucciones, $id_categoria]); //devuelve true o false (es para errores sql)
+        $query->execute([$nombre, $ingredientes, $calorias, $instrucciones, $id_categoria]); 
 
-       
-        // 3. Obtengo y devuelo el ID de la tarea nueva
-       /*  return $this->db->lastInsertId();
-       */
+        // 3. Obtengo y devuelo el ID de la receta nueva
+        return $this->db->lastInsertId(); 
     } 
 
     function remove($id) {  
@@ -79,9 +64,5 @@ class RecetaModel{
   function update($nombre, $ing, $cal, $inst, $id_categ, $id){
     $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?");
     $query->execute([$nombre, $ing, $cal, $inst, $id_categ, $id]);
-
   }
-
- 
-
 }

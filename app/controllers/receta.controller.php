@@ -1,52 +1,46 @@
 <?php
     include_once 'app/models/receta.model.php';
     include_once 'app/views/receta.view.php';
-
     include_once 'app/models/categoria.model.php';
+    include_once 'app/helpers/auth.helper.php';
 
     class RecetaController{
         private $model;
         private $view;
 
         private $categoriaModel;
+        private $authHelper;
 
         function __construct(){
             $this->model = new RecetaModel();
             $this->view = new RecetaView();
-
             $this->categoriaModel =new CategoriaModel();
-
-            /* //verifico que el usuario este logueado
-            $this->checkLogueado(); */
+            $this->authHelper = new AuthHelper();
         }
-
-        function mostrarRecetas(){
+/* *******************************************     PUBLICO    *************************************************************** */
+        function showRecetas(){
             $recetas= $this->model-> getAll();
-            
-            $this->view->printHome($recetas);
+            $logueado= $this->authHelper->isLogueado();
+
+            $this->view->printHome($recetas, $logueado);
         }
            
-
         function showDetallesReceta($id){
+            $logueado= $this->authHelper->isLogueado();
             $detalles= $this->model->getDetalles($id);
             if($detalles) {
-                $this->view->printDetalles($detalles);
+                $this->view->printDetalles($detalles, $logueado);
             }
             else {
                 $this->view->printError("No existe la receta");
             }
-           /*  header("Location: " . BASE_URL. "detalles/$id");  */
-        }
-
-       
+        } 
 
 /* ********************************************************* ADMIN  ******************************************************* */
-            /**
-     * Inserta una tarea en el sistema
-     */
-        function agregarReceta() {
-            //verifico que el usuario este logueado
-            $this->checkLogueado();
+
+        /* ----------------  INSERTAR RECETA  ------------------- */
+        function agregarReceta() { 
+            $this->authHelper->checkLogueado();
 
             $nombre = $_POST['nombre'];
             $ingredientes = $_POST['ingredientes'];
@@ -54,74 +48,52 @@
             $instrucciones = $_POST['instrucciones'];
             $categoria = $_POST['categoria'];
         
-            // verifico campos obligatorios
             if (empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categoria)){
                 $this->view->printError("Faltan datos obligatorios");
                 die();
-            }
-            
+            }  
             // inserto la tarea en la DB
-            //y ademas mira si pudo insertar o no
             $success = $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria);
 
             // redirigimos al listado
-            if($success){//si fue true (lo pudo insertar) redirige a la pag base
-                header("Location: " . BASE_URL. "admin");
+            if($success){
+                header("Location: " . BASE_URL. "adminRecetas");
             }  
-            else { //si no pudo insertar muestra msj de error
+            else { 
                 $this->view->printError("No pudo insertar la receta");
             }
         }
 
-        function deleteRecipe($id){
-             //verifico que el usuario este logueado
-             $this->checkLogueado();
-            
-            $this->model->remove($id);
-
-            header("Location: " . BASE_URL. "admin"); 
-
-        }
-
-        //ESTO VA ACA?????
-        function mostrarRecetasAdmin(){
-
-            //verifico que el usuario este logueado
-            $this->checkLogueado();
-
+        function mostrarRecetasAdmin(){ 
+            $this->authHelper->checkLogueado();
 
             $recetas= $this->model-> getAll();
             $categorias=$this->categoriaModel->getAll();
-               //actualizo la vista
-            $this->view->printAdmin($recetas, $categorias);
-            
-
+            //actualizo la vista
+            $this->view->printAdminRecetas($recetas, $categorias);    
         }
 
-        //barrera de seguridad para el usuario logueado
-        //si esta logueado esta barrera la pasa
-        function checkLogueado(){
-            session_start();
-            if(!isset($_SESSION['ID_USER'])){ //Si no esta logueado
-                header("Location: " .BASE_URL. "login");
-                die(); //me aseguro q no pasa de aca.
+        /* -----------------   BORRAR RECETA  ------------------ */
+        function deleteReceta($id){  
+            $this->authHelper->checkLogueado();
+            
+            $this->model->remove($id);
 
-            } 
-
+            header("Location: " . BASE_URL. "adminRecetas"); 
         }
 
         /* ------------------  EDITAR  ------------------------- */
-        function showFormEditarReceta($id){
-            //verifico que el usuario este logueado
-            $this->checkLogueado();
+        function showFormEditarReceta($id){ 
+            $this->authHelper->checkLogueado();
 
             $receta=$this->model->getDetalles($id);
-            $this->view->printFormEditarReceta($receta);
+            $categorias=$this->categoriaModel->getAll();
+
+            $this->view->printFormEditarReceta($receta, $categorias);
         }
 
         function updateReceta($id){
-            //verifico que el usuario este logueado
-            $this->checkLogueado();
+            $this->authHelper->checkLogueado();
 
             $rec_id = $id;
             $nombre = $_POST['nombreActualizado'];
@@ -139,13 +111,4 @@
 
             header("Location: " .BASE_URL. "adminRecetas"); 
         }
-
-
-        
-       
-
-        
-
-
-
     }

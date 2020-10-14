@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {* <base href="<?=BASE_URL?>"> *}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="{BASE_URL}">
     <title>{$titulo_s|upper}</title>
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
 </head>
 <body>
     <header> <!-- hacer barra de nav -->
@@ -27,19 +25,16 @@
                         <a class="nav-link" href="categorias">Categorias</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="admin">Admin</a>
+                        <a class="nav-link" href="adminRecetas">Admin</a>
                     </li>
                     {if isset($smarty.session.EMAIL_USER)} {* para q no se rompa el nav si no esta logueado *}
                         <li class="nav-item active ml-auto">
-                            {* <a class="nav-link" href="login">Login</a> *}
-                            <a class="nav-link" href="logout">{$smarty.session.EMAIL_USER} (logout)</a>
-                            
+                            <a class="nav-link" href="logout">{$smarty.session.EMAIL_USER} (logout)</a>    
                         </li>
                     {/if}
                 </ul>
             </div>
         </nav>
-
     </header>
 
     <main class="container justify-content-center align-items-center vh-100">

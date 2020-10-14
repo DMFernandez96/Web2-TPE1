@@ -1,23 +1,25 @@
 <?php
     include_once 'app/models/user.model.php';
     include_once 'app/views/auth.view.php';
+    include_once 'app/helpers/auth.helper.php';
 
     class AuthController{
 
         private $model;
         private $view;
+        private $authHelper;
 
         function __construct(){
             $this->model = new UserModel();
             $this->view = new AuthView();
-
+            $this->authHelper = new AuthHelper();
         }
 
         function showLogin(){
             $this->view->showFormLogin();
         }
 
-         function verifyUser(){
+        function verifyUser(){
             $mail= $_POST['mail'];
             $password= $_POST['password'];
 
@@ -25,33 +27,21 @@
                 $this->view->showFormLogin("Faltan datos obligatorios");
                 die();
             }
-
             //obtengo usuario
             $usuario = $this->model->getPorMail($mail);
-
-           //su user existe, y las password coinciden 
+ 
            //hashing.
-            if($usuario && password_verify($password, $usuario->password)){ //con esto las vuelvo a encriptar para comparar
-
+            if($usuario && password_verify($password, $usuario->password)){ //las vuelvo a encriptar para comparar
                 //armo la session del usuario
-                //inicio sesion. Esto mismo lo uso para berificar q el usuario este logueado mas adelante. En los request
-                session_start();
-                $_SESSION['ID_USER'] = $usuario->id;
-                $_SESSION['EMAIL_USER'] = $usuario->mail; 
+                $this->authHelper->login($usuario); 
 
-                header("Location: ". BASE_URL . "admin");
+                header("Location: ". BASE_URL . "adminRecetas");
             } else{
-                $this->view->showFormLogin("Credenciales invalidas");
-                
+                $this->view->showFormLogin("Credenciales invalidas");  
             }
-
         } 
 
         function logout(){
-            session_start();
-            session_destroy();
-            header("Location: ". BASE_URL . "login");
-
+            $this->authHelper->logout();
         }
-
     }

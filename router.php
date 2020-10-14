@@ -2,25 +2,24 @@
     include_once 'app/controllers/receta.controller.php';
     include_once 'app/controllers/categoria.controller.php';
     include_once 'app/controllers/auth.controller.php';
+    include_once 'app/helpers/auth.helper.php';
+    include_once 'app/helpers/db.helper.php';
 
-
-    // defino la base url para la construccion de links con urls semánticas
     define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
     // lee la acción
     if (!empty($_GET['action'])) {
         $action = $_GET['action'];
     } else {
-        $action = 'home'; // acción por defecto si no envían
+        $action = 'home'; 
     }
 
-    // parsea la accion Ej: suma/1/2 --> ['suma', 1, 2]
     $params = explode('/', $action);
 
     switch ($params[0]) {
         case 'home': //home
             $controller= new RecetaController();
-            $controller->mostrarRecetas();
+            $controller->showRecetas();
             break;
         case 'detalles':
             $controller= new RecetaController();
@@ -38,10 +37,6 @@
             $controller-> showFiltroCategorias($id);
             break;
         
-   /*      case 'auth':
-            $controller= new AuthController();
-            $controller->showLogin();
-            break; */
         /* *********************************    ADMIN    ************************************************** */
         case 'login':
             $controller= new AuthController();
@@ -55,12 +50,7 @@
             $controller= new AuthController();
             $controller->logout();
             break;
-
         
-        case 'admin': //muestra. TENDRIA QUE CAMBIARLO POR EL LOGIN (HACER EL FORM)
-            $controller= new RecetaController();
-            $controller->mostrarRecetasAdmin();
-            break;
         case 'adminRecetas': //link dentro de admin para ABM de recetas
             $controller= new RecetaController();
             $controller->mostrarRecetasAdmin();
@@ -75,12 +65,12 @@
             $controller= new RecetaController();
             $controller->agregarReceta();
             break;
-        case 'eliminarReceta': // eliminar/:ID    es el boton borrar 
+        case 'eliminarReceta': // eliminar/:ID boton borrar 
             $controller= new RecetaController();
             $id= $params[1];
-            $controller->deleteRecipe($id);
+            $controller->deleteReceta($id);
             break;
-        case 'editarReceta': //seguirlo!hace aparecer 
+        case 'editarReceta':  
             $controller= new RecetaController();
             $id= $params[1];
             $controller->showFormEditarReceta($id);
@@ -110,7 +100,6 @@
             $controller= new CategoriaController();
             $id= $params[1];
             $controller->updateCategoria($id);
-
         break;
         default:
             header("HTTP/1.0 404 Not Found");  //en el router imprime un 404 en consola    

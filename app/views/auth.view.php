@@ -4,19 +4,13 @@
 
         private $smarty;
 
-       function  __construct(){ //pueden recibir paramentros
-        $this->smarty= new Smarty(); //variable smarty q siempre va a estar
-        $this->smarty->assign('titulo_s',"login");
-
+        function  __construct(){ 
+            $this->smarty= new Smarty(); 
+            $this->smarty->assign('titulo_s',"login");
         }
 
-
-        function showFormLogin($error = null){ //$error es opcional. parametros opcionales en php
+        function showFormLogin($error = null){ 
             $this->smarty->assign('error_s', $error);
             $this->smarty->display("./templates/formLogin.tpl");
-
         }
-
-
-
     }

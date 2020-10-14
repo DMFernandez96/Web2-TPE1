@@ -12,7 +12,6 @@
                         
                     </div>
                 </div>
-
                 <!-- input ingredientes -->
                 <div class="col-4">
                     <div class="form-group">

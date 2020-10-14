@@ -1,54 +1,54 @@
 <?php 
-    require_once ("./libs/smarty/Smarty.class.php"); // ./ pq estoy adentro de view. con eso salgo
+    require_once ("./libs/smarty/Smarty.class.php"); 
     class RecetaView{
 
         private $smarty;
 
-        function  __construct(){ //pueden recibir paramentros
+        function  __construct(){ 
             $this->smarty= new Smarty();
-            $this->smarty->assign('titulo_s',"Recetas");
-            
+            $this->smarty->assign('titulo_s',"Recetas");  
         }
 
         function printError($mensaje){
             $this->smarty->assign('msg', $mensaje);
-            $this->smarty->display('./templates/error.tpl');
-            
+            $this->smarty->display('./templates/error.tpl');    
         }
 /* *************************************************    HOME    ***************************************************** */
-        function printHome($recetas){
+        function printHome($recetas, $logueado){
             $this->smarty->assign('titulo_s',"Recetas");
             $this->smarty->assign('recetas_s', $recetas);
-            $this->smarty->display('./templates/home.tpl'); // muestro el template
+            $this->smarty->assign('logueado_s', $logueado);
 
-            
+            $this->smarty->display('./templates/home.tpl'); 
         }
 
-        function printDetalles($detalles){ //id??
+        function printDetalles($detalles, $logueado){ 
             $this->smarty->assign('titulo_s',"Detalles");
             $this->smarty->assign('receta_s', $detalles);
+            $this->smarty->assign('logueado_s', $logueado);
             $this->smarty->display('templates/detalles.tpl');
         }
 
-/* **********************************************   PAGINA CATEGORIAS    ************************************************** */
+/* **********************************************   PAGINA PUBLICA CATEGORIAS    ************************************************** */
 
-        function printCategorias($categorias){
+        function printCategorias($categorias, $logueado){
             $this->smarty->assign('titulo_s',"Categorias del sitio");
             $this->smarty->assign('categorias_s', $categorias);
+            $this->smarty->assign('logueado_s', $logueado);
             $this->smarty->display('templates/categorias.tpl'); 
-
         }
 
-        function printRecetasFiltradas($recetas){
+        function printRecetasFiltradas($recetas, $logueado){
                 $this->smarty->assign('titulo_s' , "Lista de recetas pertenecientes a esta categoria");
                 $this->smarty->assign('recetas' , $recetas);
+                $this->smarty->assign('logueado_s', $logueado);
                 $this->smarty->display('./templates/recetasFiltradas.tpl');                
         }
 
 
-/* *********************************************    ADMINISTRADOR   ************************************************** */
+/* *********************************************    ADMINISTRADOR   *************************************************************** */
 
-        function printAdmin($recetas, $categorias){
+        function printAdminRecetas($recetas, $categorias){
             $this->smarty->assign('titulo_s',"Administrador-Recetas");
             $this->smarty->assign('recetas_s', $recetas);
             $this->smarty->assign('categorias_s', $categorias); //para el select
@@ -63,10 +63,10 @@
 
         /*  -----------------   EDITAR   ------------------------- */
     
-        function printFormEditarReceta($receta){  
+        function printFormEditarReceta($receta, $categorias){  
             $this->smarty->assign('titulo_s',"Editar Receta");
             $this->smarty->assign('receta_s', $receta);
-           /*  $smarty->assign('categoria_s', $categoria->nombre); */
+            $this->smarty->assign('categorias_s', $categorias); //para el select
             $this->smarty->display('./templates/formUpdate_receta.tpl');
         }
 

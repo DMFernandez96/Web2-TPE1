@@ -10,7 +10,6 @@
                     <input name="nombreActualizado" type="text" class="form-control" value="{$receta_s->nombre}">
                 </div>
             </div>
-
             <!-- input ingredientes -->
             <div class="col-4">
                 <div class="form-group">
@@ -18,7 +17,6 @@
                     <input name="ingredientesActualizado" type="text" class="form-control" value="{$receta_s->ingredientes}">
                 </div>
             </div>
-
             <!-- input calorias -->
             <div class="col-4">
                 <div class="form-group">
@@ -37,18 +35,15 @@
             <div class="col-4">
                 <div class="form-group">
                     <label>Categoria</label>
-                    <input name="categoriaActualizado" type="number" class="form-control" value="{$receta_s->id_categoria}">
-                    {* <select>
+                    <select name="categoriaActualizado" class="form-control" required>
                         {foreach from=$categorias_s item=categoria}
-                            <option>{$categoria->nombre}</option> 
+                            <option value="{$categoria->id}">{$categoria->nombre}</option>
                         {/foreach}
-                    </select> *}
+                    
+                    </select>
                 </div>
             </div>
-
         </div>
-
-
         <button type="submit" class="btn btn-primary">Editar!</button>
     </form>
 </div>

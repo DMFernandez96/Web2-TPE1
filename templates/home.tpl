@@ -7,32 +7,26 @@
     </blockquote>
 </div>
  <h3><em>Recetas</em></h3>
- {*    <ul class='list-group mt-2'>
-    {foreach from=$recetas_s item=receta} 
-        <li class='list-group-item'>
-            {$receta->nombre} | {$receta->id_categoria} | {$receta->calorias} 
-            <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a> 
-        </li> 
-    {/foreach}
-    </ul> *}
-
+ {if $logueado_s} <h4><em>Recetas publicadas en el sitio:</em></h4> {/if}
     <table class="table ">
-    <thead class="thead-dark">
-        <tr class="">
-            <th>nombre </th>
-            <th>categoria </th>
-            <th>calorias</th>
-            <th>Detalles</th>
-        </tr> 
-    </thead>
-    {foreach from=$recetas_s item=receta}  
-        <tr>
-            <td>{$receta->nombre}</td>
-            <td>{$receta->categoria}</td>
-            <td>{$receta->calorias}</td>
-            <td> <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a></td>
-        </tr>
-    {/foreach}
-</table>
+        <thead class="thead-dark">
+            <tr class="">
+                <th>nombre </th>
+                <th>categoria </th>
+                <th>calorias</th>
+                <th>Detalles</th>
+            </tr> 
+        </thead>
+        <tbody>
+            {foreach from=$recetas_s item=receta}  
+                <tr>
+                    <td>{$receta->nombre}</td>
+                    <td>{$receta->categoria}</td>
+                    <td>{$receta->calorias}</td>
+                    <td> <a class='btn btn-primary btn-sm' href='detalles/{$receta->id}'> VER DETALLES</a> </td> 
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
 {include file="footer.tpl"}
 
