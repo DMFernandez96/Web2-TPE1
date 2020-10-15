@@ -39,7 +39,7 @@
 /* ********************************************************* ADMIN  ******************************************************* */
 
         /* ----------------  INSERTAR RECETA  ------------------- */
-        function agregarReceta() { 
+        function addReceta() { 
             $this->authHelper->checkLogueado();
 
             $nombre = $_POST['nombre'];
@@ -64,7 +64,7 @@
             }
         }
 
-        function mostrarRecetasAdmin(){ 
+        function showRecetasAdmin(){ 
             $this->authHelper->checkLogueado();
 
             $recetas= $this->model-> getAll();

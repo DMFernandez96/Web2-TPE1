@@ -53,7 +53,7 @@
         
         case 'adminRecetas': //link dentro de admin para ABM de recetas
             $controller= new RecetaController();
-            $controller->mostrarRecetasAdmin();
+            $controller->showRecetasAdmin();
             break;
         case 'adminCategorias': //link dentro de admin para ABM de categorias
             $controller= new CategoriaController();
@@ -63,7 +63,7 @@
         //RECETAS-- ADMIN
         case 'insertarReceta': //form de admin. boton agregar
             $controller= new RecetaController();
-            $controller->agregarReceta();
+            $controller->addReceta();
             break;
         case 'eliminarReceta': // eliminar/:ID boton borrar 
             $controller= new RecetaController();
