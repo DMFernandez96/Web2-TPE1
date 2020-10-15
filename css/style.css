@@ -41,3 +41,7 @@ h2 {
 .info-calorias {
     background-color: #99B898;
 }
+
+p {
+    line-height: 1.8;
+}
