@@ -1,5 +1,5 @@
 
-    <div class="formulario col-4">
+    <div class="formulario col-6">
         <h1>Agregar categoria</h1>
         <!-- formulario de alta de categoria -->
         <form action="insertarCategoria" method="POST" class="my-4">

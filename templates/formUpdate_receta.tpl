@@ -1,5 +1,5 @@
 {include 'header.tpl'}
-<div class="formulario col-md-8">
+<div class="formulario col-md-10  mt-5">
     <h1>Editar receta</h1>
     <!-- formulario de alta de receta -->
     <form action="actualizarReceta/{$receta_s->id}" method="POST" class="my-4">
@@ -28,7 +28,8 @@
             <div class="col-4">
                 <div class="form-group">
                     <label>Instrucciones</label>
-                    <input name="instruccionesActualizado" type="text" class="form-control" value="{$receta_s->instrucciones}">
+                    <textarea class="form-control" name="instruccionesActualizado" rows="4" value="{$receta_s->instrucciones}"></textarea>
+                    
                 </div>
             </div>
             <!-- input id categoria -->
@@ -45,6 +46,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Editar!</button>
+        <a class="ml-2" href="adminRecetas">Volver</a>
     </form>
 </div>
 {include 'footer.tpl'}

@@ -2,9 +2,10 @@
 {include "templates/adminTab.tpl"} 
 
 <div class="row">
-    {include 'templates/form_categoria.tpl'}
-    <div class="col-8">
-            <table class="table ">
+    {include 'templates/form_alta_categoria.tpl'}
+    <div class="col-6">
+    <h3> categorias existentes</h3>
+            <table class="table table-responsive ">
                 <thead class="thead-dark">
                     <tr class="">
                         <th>Nombre</th>

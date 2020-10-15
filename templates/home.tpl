@@ -1,16 +1,16 @@
 {include "header.tpl"}
 
-{* <p class="mt-5 h3">Mirá todas las recetas que tenemos para vos. Las mejores comidas, entradas y postres explicadas paso a paso.  ¡Son ricas, prácticas y fáciles de hacer!</p>
+<p class="mt-5 h3 p-home">Mirá todas las recetas que tenemos para vos. Las mejores comidas, entradas y postres explicadas paso a paso.  ¡Son ricas, prácticas y fáciles de hacer!</p>
 <div class="mt-5">
     <blockquote class="blockquote text-center">
         <p class="mb-0">La cocina es un lenguaje mediante el cual se puede expresar armonía, felicidad, belleza, poesía, complejidad, magia, humor, provocación, cultura</p>
         <footer class="blockquote-footer">Chef <cite title="Ferran Adrià">Ferran Adrià</cite></footer>
     </blockquote>
-</div> *}
+</div> 
 
 <div class="row">
     <div class="col-4 mt-5">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1800">
             <div class="carousel-inner rounded">
                 <div class="carousel-item active">
                     <img src="./img/matcha-mint.jpg" class="d-block w-100" alt="Coctel">
@@ -18,9 +18,9 @@
                 <div class="carousel-item">
                     <img src="./img/soup.jpg" class="d-block w-100" alt="Sopa">
                 </div>
-                {* <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                </div> *}
+                <div class="carousel-item">
+                    <img src="./img/hotcakes.jpg" class="d-block w-100" alt="...">
+                </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -34,8 +34,8 @@
     </div>
 
     <div class="col-8">
-        <h3 class="text-center">Recetas</h3>
-            <table class="table ">
+        <h3 class="text-center mt-2">Recetas</h3>
+            <table class="table table-responsive">
                 <thead class="thead-dark">
                     <tr class="">
                         <th>nombre </th>

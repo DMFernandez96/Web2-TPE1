@@ -1,5 +1,6 @@
 {include 'header.tpl'}
 <div class="mt-5 w-25 mx-auto">
+    <h1 class="text-center">{$titulo_s}</h1>
     <form method="POST" action="verificarUsuario">
     <div class="form-group">
         <label for="mail">Email</label>

@@ -1,7 +1,7 @@
 
 {include 'header.tpl'}
-    <div class="formulario col-md-8">
-        <h1>Editar receta</h1>
+    <div class="formulario col-6 mt-5">
+        <h1>Editar categoria</h1>
         <!-- formulario de alta de receta -->
         <form action="actualizarCategoria/{$categoria_s->id}" method="POST" class="my-4">
             <div class="row">

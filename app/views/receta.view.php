@@ -52,7 +52,7 @@
             $this->smarty->assign('titulo_s',"Administrador-Recetas");
             $this->smarty->assign('recetas_s', $recetas);
             $this->smarty->assign('categorias_s', $categorias); //para el select
-            $this->smarty->display('./templates/admin.tpl'); 
+            $this->smarty->display('./templates/adminRecetas.tpl'); 
         }
 
         function printAdminCategorias($categorias){  

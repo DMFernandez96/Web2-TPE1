@@ -10,10 +10,34 @@ nav {
 }
 
 h1 {
-    font-family: 'Bowlby One SC', 'Times New Roman';
+    font-family: 'Bowlby One SC', Helvetica;
 }
 
-h3 {
-    /* font-family: 'Bangers', 'Times New Roman', Times, serif; */
-    font-family: 'Oxygen', sans-serif;
+.p-home,
+.p-categorias,
+h4,
+h5,
+p {
+    font-family: 'Titillium Web', sans-serif;
+}
+
+h4,
+h5 {
+    font-weight: bold;
+}
+
+h3,
+h2 {
+    font-family: 'Permanent Marker', cursive;
+}
+
+.blockquote p {
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+
+/* *********** PAGINA DETALLES  ******************* */
+
+.info-calorias {
+    background-color: #99B898;
 }

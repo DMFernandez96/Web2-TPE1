@@ -2,10 +2,10 @@
 {include file="templates/adminTab.tpl"}
 
 <div class="row">
-    {include file="templates/form_receta.tpl"}
+    {include file="templates/form_alta_receta.tpl"}
     <div class="col-6">
-        <h3> Recetas</h3>
-        <table class="table">
+        <h3> Recetas existentes</h3>
+        <table class="table table-responsive">
             <thead class="thead-dark">
                 <tr class="">
                     <th>Nombre </th>
