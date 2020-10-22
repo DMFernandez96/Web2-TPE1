@@ -27,6 +27,7 @@
             $recetasFiltradas = $this->model->getRecetasFiltradas($idCategoria);
             $logueado= $this->authHelper->isLogueado();
             $this->view->printRecetasFiltradas($recetasFiltradas, $logueado); //lista filtrada de recetas
+              
         }
 
         /* ******************************* ADMIN  ********************************************************* */

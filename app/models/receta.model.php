@@ -14,7 +14,6 @@ class RecetaModel{
 
     function getAll() { 
 
-        
         $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
         $query->execute(); 
 
@@ -59,6 +58,7 @@ class RecetaModel{
     function remove($id) {  
         $query = $this->db->prepare('DELETE FROM receta WHERE id = ?');
         $query->execute([$id]);
+        return $query->rowCount();
   }
 
   function update($nombre, $ing, $cal, $inst, $id_categ, $id){

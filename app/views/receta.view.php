@@ -42,7 +42,7 @@
                 $this->smarty->assign('titulo_s' , "Lista de recetas pertenecientes a esta categoria");
                 $this->smarty->assign('recetas' , $recetas);
                 $this->smarty->assign('logueado_s', $logueado);
-                $this->smarty->display('./templates/recetasFiltradas.tpl');                
+                $this->smarty->display('./templates/recetasFiltradas.tpl');              
         }
 
 
