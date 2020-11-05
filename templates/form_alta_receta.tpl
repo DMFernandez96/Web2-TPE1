@@ -1,7 +1,7 @@
 <div class="formulario col-6">
     <h1>Agregar receta</h1>
     <!-- formulario de alta de receta -->
-    <form action="insertarReceta" method="POST" class="my-4">
+    <form action="insertarReceta" method="POST" class="my-4" enctype="multipart/form-data">
         <div class="row">
             <div class="col-10">
                 <div class="form-group">
@@ -42,6 +42,12 @@
                         {/foreach}
                     
                     </select>
+                </div>
+            </div>
+             <div class="col-10">
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" name="input_name" id="imageToUpload">
                 </div>
             </div>
         </div>

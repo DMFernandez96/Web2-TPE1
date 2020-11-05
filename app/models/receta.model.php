@@ -45,11 +45,20 @@ class RecetaModel{
       /**
      * Inserta la tarea en la base de datos
      */
-    function insert($nombre, $ingredientes, $calorias, $instrucciones, $id_categoria) {
+    function insert($nombre, $ingredientes, $calorias, $instrucciones, $id_categoria, $imagen=null) { //img en null por si no manda nada
+
+      if($imagen){ //si existe
+        $sql = 'INSERT INTO receta(nombre, ingredientes, calorias, instrucciones, id_categoria, imagen) VALUES (?,?,?,?,?,?)';
+        $params = [$nombre, $ingredientes, $calorias, $instrucciones, $id_categoria, $imagen];
+      } else{ //si no existe
+        $sql = 'INSERT INTO receta(nombre, ingredientes, calorias, instrucciones, id_categoria) VALUES (?,?,?,?,?)';
+        $params = [$nombre, $ingredientes, $calorias, $instrucciones, $id_categoria];
+
+      }
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('INSERT INTO receta(nombre, ingredientes, calorias, instrucciones, id_categoria) VALUES (?,?,?,?,?)');
-        $query->execute([$nombre, $ingredientes, $calorias, $instrucciones, $id_categoria]); 
+        $query = $this->db->prepare($sql);
+        $query->execute($params); 
 
         // 3. Obtengo y devuelo el ID de la receta nueva
         return $this->db->lastInsertId(); 

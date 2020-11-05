@@ -38,6 +38,17 @@
 
 /* ********************************************************* ADMIN  ******************************************************* */
 
+        //construye un nombre unico de archivo y lo mueve  mi carpeta de img
+        function uniqueSaveName($nombreReal, $nombreTemporal){
+            $filePath = "images/" . uniqid("", true) . "."
+                . strtolower(pathinfo($nombreReal, PATHINFO_EXTENSION));
+
+            // obtenemos algo como “img/123127843873.jpg” (o la extensión que sea)
+            move_uploaded_file($nombreTemporal, $filePath); //funcion q mueve archivos
+
+            return $filePath; //devuelvo ese nombre real, q es lo q voy a usar en la DB
+
+        }
         /* ----------------  INSERTAR RECETA  ------------------- */
         function addReceta() { 
             $this->authHelper->checkLogueado();
@@ -52,8 +63,22 @@
                 $this->view->printError("Faltan datos obligatorios");
                 die();
             }  
+
+            if($_FILES['input_name']['type'] == "image/jpg" ||
+                $_FILES['input_name']['type'] == "image/jpeg" ||
+                $_FILES['input_name']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
+                    $imgNombreReal= $this->uniqueSaveName($_FILES['input_name']['name'], //nombre real me aporta la extension del archivo
+                                                             $_FILES['input_name']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
+
+                   
+                    $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria, $imgNombreReal);
+                }
+            else{
+                $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria);
+            }
+
             // inserto la tarea en la DB
-            $success = $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria);
+            /* $success = $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria); */
 
             // redirigimos al listado
             if($success){
