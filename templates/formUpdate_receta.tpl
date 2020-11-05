@@ -44,6 +44,7 @@
                     <textarea class="form-control" name="instruccionesActualizado" rows="6" >{$receta_s->instrucciones}</textarea>
                 </div>
             </div>
+            
            
         </div>
         <button type="submit" class="btn btn-primary">Editar!</button>
