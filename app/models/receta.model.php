@@ -12,7 +12,7 @@ class RecetaModel{
         $this->db = $this->dbHelper->connect();
     }
 
-    function getAll() { 
+    function getAll($parametros =null) { 
 
         $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
         $query->execute(); 
@@ -70,8 +70,22 @@ class RecetaModel{
         return $query->rowCount();
   }
 
-  function update($nombre, $ing, $cal, $inst, $id_categ, $id){
-    $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?");
-    $query->execute([$nombre, $ing, $cal, $inst, $id_categ, $id]);
+  function update($nombre, $ing, $cal, $inst, $id_categ, $id, $img=null){
+   /*  $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?");
+    $query->execute([$nombre, $ing, $cal, $inst, $id_categ, $id]); */
+
+    if($img){ //si existe
+      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ?, imagen =? WHERE id = ?';
+      $params = [$nombre, $ing, $cal, $inst, $id_categ, $img, $id];
+    } else{ //si no existe
+      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?';
+      $params = [$nombre, $ing, $cal, $inst, $id_categ, $id];
+    }
+
+      // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+      $query = $this->db->prepare($sql);
+      $result= $query->execute($params); 
+
+      return $result;
   }
 }

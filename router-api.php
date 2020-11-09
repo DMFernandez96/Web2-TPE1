@@ -13,7 +13,9 @@ $router->addRoute('recetas/:ID', 'GET', 'ApiRecipeController', 'get'); //obtener
 
 $router->addRoute('recetas/:ID', 'DELETE', 'ApiRecipeController', 'delete'); 
 
-$router->addRoute('recetas', 'POST', 'ApiRecipeController', 'crearTarea'); 
+$router->addRoute('recetas', 'POST', 'ApiRecipeController', 'add'); //agregar
+
+$router->addRoute('recetas/:ID', 'PUT', 'ApiRecipeController', 'update');
 
 // rutea
 $router->route($_GET["resource"], $_SERVER['REQUEST_METHOD']);

@@ -7,5 +7,5 @@
 
     RewriteRule ^api/(.*)$ router-api.php?resource=$1 [QSA,L,END]
 
-    RewriteRule ^(.*)$ router.php?action=$1 [QSA,L] //todo lo que venga mandamelo a router.php
+    RewriteRule ^(.*)$ router.php?action=$1 [QSA,L] 
 </IfModule>

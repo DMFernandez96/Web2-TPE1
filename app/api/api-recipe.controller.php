@@ -9,7 +9,12 @@ class ApiRecipeController{
     function __construct(){
         $this->model = new RecetaModel();
         $this->view = new APIView();
+        $this->data = file_get_contents("php://input");
 
+    }
+
+    function getData(){ //lo transforma en un json
+        return json_decode($this->data); //lee la variable data y la transforma
     }
 
 /* *************************  Obtener todas las recetas  *************************** */
@@ -36,9 +41,48 @@ class ApiRecipeController{
         $idReceta = $params[':ID'];
         $success= $this->model->remove($idReceta);
         if($success){
-            $this->view->response("La receta con el id=$idReceta se borro exitosamente", 200);
+            $this->view->response("La receta con el id=$idReceta se borró exitosamente", 200);
         }else{
             $this->view->response("La receta con el id=$idReceta no existe", 404);
         }
+    }
+
+    public function add($params = null){
+        $body = $this->getData(); //es lo que se envia por formulario
+
+        $nombre        = $body->nombre;
+        $ingredientes  = $body->ingredientes;
+        $calorias      = $body->calorias;
+        $instrucciones = $body->instrucciones;
+        $id_categ      = $body->id_categoria;
+
+        $id = $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $id_categ);
+
+        if($id > 0){
+            $this->view->response("Se agrego la receta $id exitosamente", 200);
+        }else{
+            $this->view->response("La receta NO se pudo insertar", 500); 
+        }
+
+    } 
+    
+    public function update($params = null){
+        $idReceta= $params[':ID'];
+        $body = $this->getData(); //es lo que se envia por formulario
+
+        $nombre        = $body->nombre;
+        $ingredientes  = $body->ingredientes;
+        $calorias      = $body->calorias;
+        $instrucciones = $body->instrucciones;
+        $id_categ      = $body->id_categoria;
+
+        $success = $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $id_categ, $idReceta);
+    
+        if($success){
+            $this->view->response("Se ACTUALIZÓ la receta $idReceta exitosamente", 200);
+        }else{
+            $this->view->response("La receta NO se pudo actualizar", 500);
+        }
+
     }  
 }
