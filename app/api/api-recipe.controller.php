@@ -10,7 +10,6 @@ class ApiRecipeController{
         $this->model = new RecetaModel();
         $this->view = new APIView();
         $this->data = file_get_contents("php://input");
-
     }
 
     function getData(){ //lo transforma en un json
@@ -19,9 +18,19 @@ class ApiRecipeController{
 
 /* *************************  Obtener todas las recetas  *************************** */
     function getAll($params=null){ //nunca usamos $params pero es buena practica ponerlo
-        $recetas =$this->model->getAll();
+        $parametros= []; //arr vacio que se va llenando si hay cosas en el GET
+
+        if(isset($_GET['sort'])){ //si existe sort
+            $parametros['sort'] = $_GET['sort'];
+        }
+
+        if(isset($_GET['order'])){ //si existe sort
+            $parametros['order'] = $_GET['order'];
+        }
+
+        $recetas =$this->model->getAll($parametros);
         $this->view->response($recetas, 200);
-        var_dump($recetas);
+        /* var_dump($recetas); */
     }
 
     public function get($params = null){ //buena practica hacerlo opcional
