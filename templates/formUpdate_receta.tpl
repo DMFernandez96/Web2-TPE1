@@ -44,7 +44,12 @@
                     <textarea class="form-control" name="instruccionesActualizado" rows="6" >{$receta_s->instrucciones}</textarea>
                 </div>
             </div>
-            
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Imagen</label>
+                    <input type="file" name="input_nameActualizado" id="imageToUpload">
+                </div>
+            </div>
            
         </div>
         <button type="submit" class="btn btn-primary">Editar!</button>

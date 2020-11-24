@@ -18,15 +18,17 @@
         function showCategorias(){ // en pagina publica
             $categorias= $this->model-> getAll();
             $logueado= $this->authHelper->isLogueado();
+            $admin= $this->authHelper->isAdmin();
             //actualizo la vista
-            $this->view->printCategorias($categorias, $logueado);
+            $this->view->printCategorias($categorias, $logueado, $admin);
         }
 
        
         function showFiltroCategorias($idCategoria){
             $recetasFiltradas = $this->model->getRecetasFiltradas($idCategoria);
             $logueado= $this->authHelper->isLogueado();
-            $this->view->printRecetasFiltradas($recetasFiltradas, $logueado); //lista filtrada de recetas
+            $admin= $this->authHelper->isAdmin();
+            $this->view->printRecetasFiltradas($recetasFiltradas, $logueado, $admin); //lista filtrada de recetas
               
         }
 
@@ -34,13 +36,19 @@
     
         function showCategoriasAdmin(){
             $this->authHelper->checkLogueado();
-
-            $categorias= $this->model-> getAll();
-            $this->view->printAdminCategorias($categorias); 
+            $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
+            /* if($admin){ */
+                $categorias= $this->model-> getAll();
+                $this->view->printAdminCategorias($categorias, $admin);
+            /* }else{
+                header("Location: " . BASE_URL. "home");
+            }  */  
         }
 
         function addCategoria(){
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
 
             $nombre= $_POST['nombre'];
             $descripcion= $_POST['descripcion'];
@@ -63,6 +71,7 @@
 
         function deleteCategoria($id){
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
             
             $this->model->remove($id);
             header("Location: " . BASE_URL. "adminCategorias"); 
@@ -72,13 +81,21 @@
 /* ------------------  EDITAR  ------------------------- */
         function showFormEditarCategoria($id){
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
+            /* if($admin){ */
+                $categoria=$this->model->getCategoria($id);
+                $this->view->printFormEditarCategoria($categoria, $admin);
+            /* }else{
+                header("Location: " . BASE_URL. "home");
+            } */
 
-            $categoria=$this->model->getCategoria($id);
-            $this->view->printFormEditarCategoria($categoria);
+            
         }
 
         function updateCategoria($id){
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
 
             $cat_id = $id;
             $nombre= $_POST['nombreActualizado'];

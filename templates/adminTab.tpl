@@ -6,5 +6,8 @@
         <li class="nav-item">
             <a class="nav-link" href="adminCategorias">Categorias</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="adminUsuarios">Usuarios</a>
+        </li>
     </ul>
 </div>

@@ -30,6 +30,26 @@
         function login($usuario){
             session_start();
             $_SESSION['ID_USER'] = $usuario->id;
-            $_SESSION['EMAIL_USER'] = $usuario->mail; 
+            $_SESSION['EMAIL_USER'] = $usuario->mail;
+            $_SESSION['ADMIN_USER'] =$usuario->administrador;
+           /*  header("Location: ". BASE_URL . "home"); */
         }
+
+        function isAdmin(){
+            /* session_start(); */
+            if($_SESSION['ADMIN_USER'] == 1){ //Si es admin
+               return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+        function checkIsAdmin(){
+            if($_SESSION['ADMIN_USER'] == 0){ //Si no es admin
+                header("Location: " .BASE_URL. "home");
+                die(); 
+            } 
+        }
+  
     }

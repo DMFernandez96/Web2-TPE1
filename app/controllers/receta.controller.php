@@ -2,10 +2,12 @@
     include_once 'app/models/receta.model.php';
     include_once 'app/views/receta.view.php';
     include_once 'app/models/categoria.model.php';
+    include_once 'app/models/comentario.model.php';
     include_once 'app/helpers/auth.helper.php';
 
     class RecetaController{
         private $model;
+        private $comentarioModel;
         private $view;
 
         private $categoriaModel;
@@ -13,6 +15,7 @@
 
         function __construct(){
             $this->model = new RecetaModel();
+            $this->comentarioModel = new ComentarioModel();
             $this->view = new RecetaView();
             $this->categoriaModel =new CategoriaModel();
             $this->authHelper = new AuthHelper();
@@ -21,20 +24,35 @@
         function showRecetas(){
             $recetas= $this->model-> getAll();
             $logueado= $this->authHelper->isLogueado();
+            $admin= $this->authHelper->isAdmin();
 
-            $this->view->printHome($recetas, $logueado);
+            $this->view->printHome($recetas, $logueado, $admin);
         }
            
         function showDetallesReceta($id){
             $logueado= $this->authHelper->isLogueado();
             $detalles= $this->model->getDetalles($id);
+            $admin= $this->authHelper->isAdmin();
+
+            $comentarios= $this->comentarioModel->getComentariosPorReceta($id);
+
             if($detalles) {
-                $this->view->printDetalles($detalles, $logueado);
+                $this->view->printDetalles($detalles, $comentarios, $logueado, $admin);
             }
             else {
                 $this->view->printError("No existe la receta");
             }
         } 
+
+        /* function showComentarios($idProducto){
+            $comentarios= $this->comentarioModel->getComentariosPorReceta($idProducto);
+            if($comentarios){
+                $this->view->printDetalles($comentarios);
+            }else{
+                
+            }
+
+        } */
 
 /* ********************************************************* ADMIN  ******************************************************* */
 
@@ -49,58 +67,73 @@
             return $filePath; //devuelvo ese nombre real, q es lo q voy a usar en la DB
 
         }
+
         /* ----------------  INSERTAR RECETA  ------------------- */
         function addReceta() { 
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
 
-            $nombre = $_POST['nombre'];
-            $ingredientes = $_POST['ingredientes'];
-            $calorias = $_POST['calorias'];
-            $instrucciones = $_POST['instrucciones'];
-            $categoria = $_POST['categoria'];
-        
-            if (empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categoria)){
-                $this->view->printError("Faltan datos obligatorios");
-                die();
-            }  
+            /* if($admin){ */
+                $nombre = $_POST['nombre'];
+                $ingredientes = $_POST['ingredientes'];
+                $calorias = $_POST['calorias'];
+                $instrucciones = $_POST['instrucciones'];
+                $categoria = $_POST['categoria'];
+            
+                if (empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categoria)){
+                    $this->view->printError("Faltan datos obligatorios");
+                    die();
+                }  
 
-            if($_FILES['input_name']['type'] == "image/jpg" ||
-                $_FILES['input_name']['type'] == "image/jpeg" ||
-                $_FILES['input_name']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
-                    $imgNombreReal= $this->uniqueSaveName($_FILES['input_name']['name'], //nombre real me aporta la extension del archivo
-                                                             $_FILES['input_name']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
+                // inserto la receta en la DB
+                if($_FILES['input_name']['type'] == "image/jpg" ||
+                    $_FILES['input_name']['type'] == "image/jpeg" ||
+                    $_FILES['input_name']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
+                        $imgNombreReal= $this->uniqueSaveName($_FILES['input_name']['name'], //nombre real me aporta la extension del archivo
+                                                                $_FILES['input_name']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
 
-                   
-                    $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria, $imgNombreReal);
+                        $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria, $imgNombreReal);
+                    }
+                else{
+                    $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria);
                 }
-            else{
-                $success= $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria);
-            }
 
-            // inserto la tarea en la DB
-            /* $success = $this->model->insert($nombre, $ingredientes, $calorias, $instrucciones, $categoria); */
+                // redirigimos al listado
+                if($success){
+                    header("Location: " . BASE_URL. "adminRecetas");
+                }  
+                else { 
+                    $this->view->printError("No pudo insertar la receta", $admin);
+                }
 
-            // redirigimos al listado
-            if($success){
-                header("Location: " . BASE_URL. "adminRecetas");
-            }  
-            else { 
-                $this->view->printError("No pudo insertar la receta");
-            }
+            /* }else{
+                header("Location: " . BASE_URL. "home");
+            } */
+
+            
         }
 
         function showRecetasAdmin(){ 
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
+            /* if($admin){ */
+                $recetas= $this->model-> getAll();
+                $categorias=$this->categoriaModel->getAll();
+                //actualizo la vista
+                $this->view->printAdminRecetas($recetas, $categorias, $admin);
+           /*  }else{
+                header("Location: " . BASE_URL. "home");
+            } */
 
-            $recetas= $this->model-> getAll();
-            $categorias=$this->categoriaModel->getAll();
-            //actualizo la vista
-            $this->view->printAdminRecetas($recetas, $categorias);    
+                
         }
 
         /* -----------------   BORRAR RECETA  ------------------ */
         function deleteReceta($id){  
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
             
             $this->model->remove($id);
 
@@ -110,15 +143,25 @@
         /* ------------------  EDITAR  ------------------------- */
         function showFormEditarReceta($id){ 
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
 
-            $receta=$this->model->getDetalles($id);
-            $categorias=$this->categoriaModel->getAll();
+            $admin= $this->authHelper->isAdmin();
+            /* if($admin){ */
+                $receta=$this->model->getDetalles($id);
+                $categorias=$this->categoriaModel->getAll();
 
-            $this->view->printFormEditarReceta($receta, $categorias);
+                $this->view->printFormEditarReceta($receta, $categorias, $admin);
+            /* }else{
+                header("Location: " . BASE_URL. "home");
+            } */
+
+            
         }
 
         function updateReceta($id){
             $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin=$this->authHelper->isAdmin();
 
             $rec_id = $id;
             $nombre = $_POST['nombreActualizado'];
@@ -128,11 +171,23 @@
             $categ = $_POST['categoriaActualizado'];
 
             if (empty($rec_id) || empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categ)){
-                $this->view->printError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios", $admin);
                 die();
             }
 
-            $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id);
+            if($_FILES['input_nameActualizado']['type'] == "image/jpg" ||
+                $_FILES['input_nameActualizado']['type'] == "image/jpeg" ||
+                $_FILES['input_nameActualizado']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
+                    $imgNombreReal= $this->uniqueSaveName($_FILES['input_nameActualizado']['name'], //nombre real me aporta la extension del archivo
+                                                             $_FILES['input_nameActualizado']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
+
+                    $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id, $imgNombreReal);
+                }
+            else{
+                $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id);
+            }
+
+            /* $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id); */
 
             header("Location: " .BASE_URL. "adminRecetas"); 
         }
