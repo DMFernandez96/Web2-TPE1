@@ -10,7 +10,7 @@
             header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));  //setea el codigo de respuesta
 
             //aca vamos a convertir a JSON
-            echo json_encode($data); //combierto el arr en json
+            echo json_encode($data); //convierto el arr en json
         }
 
         private function _requestStatus($code){ //funcion de traduccion
