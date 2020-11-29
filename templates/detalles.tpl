@@ -30,8 +30,12 @@
          
 </div>
 
+{* {if $logueado_s}
+    {include 'templates/form_alta_comentario.tpl'}
+{/if} *}
 
 {include 'templates/comentarios.tpl'}
+
 
 <div class="row mt-4 mb-4 justify-content-center">
     <a href='home'>Volver al home</a>

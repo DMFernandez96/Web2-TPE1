@@ -9,9 +9,9 @@
             $this->smarty->assign('titulo_s',"Recetas");  
         }
 
-        function printError($mensaje){
-            $this->smarty->assign('msg', $mensaje);
-            
+        function printError($mensaje, $admin){
+            $this->smarty->assign('mensaje_s', $mensaje);
+            $this->smarty->assign('admin_s', $admin);
             $this->smarty->display('./templates/error.tpl');    
         }
 /* *************************************************    HOME    ***************************************************** */
@@ -27,17 +27,13 @@
         function printDetalles($detalles, $comentarios, $logueado, $admin){ 
             $this->smarty->assign('titulo_s',"Detalles");
             $this->smarty->assign('receta_s', $detalles);
-            $this->smarty->assign('titulo_s', $comentarios);
+            $this->smarty->assign('comentarios_s', $comentarios);
+            $this->smarty->assign('idReceta_s', $detalles->id);
             $this->smarty->assign('logueado_s', $logueado);
             $this->smarty->assign('admin_s', $admin);
             $this->smarty->display('templates/detalles.tpl');
         }
 
-       /*  function printComentarios($comentarios){
-            $this->smarty->assign('titulo_s', $comentarios);
-            $this->smarty->display('templates/detalles.tpl');
-
-        } */
 
 /* **********************************************   PAGINA PUBLICA CATEGORIAS    ************************************************** */
 
@@ -76,7 +72,7 @@
         }
 
         function printAdminUsuarios($usuarios, $admin){  
-            $this->smarty->assign('titulo_s',"Administrador-Categorias");
+            $this->smarty->assign('titulo_s',"Administrador-Usuarios");
             $this->smarty->assign('usuarios_s', $usuarios);
             $this->smarty->assign('admin_s', $admin);
             $this->smarty->display('./templates/adminUsuarios.tpl'); // muestro el template

@@ -13,8 +13,20 @@ class RecetaModel{
     }
 
     function getAll($parametros =null) { 
+      $sql= 'SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)';
 
-        $query = $this->db->prepare('SELECT receta.*, categoria.nombre AS categoria FROM receta INNER JOIN categoria ON (receta.id_categoria = categoria.id)'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+      if(isset($parametros['order'])){
+        $sql .= ' ORDER BY '. $parametros['order'];
+
+        if(isset($parametros['sort'])){
+          $sql .= ' '. $parametros['sort'];
+        }
+      }
+      /* echo($sql);
+      echo(PHP_EOL);
+      die(__FILE__); */
+
+        $query = $this->db->prepare($sql); 
         $query->execute(); 
 
         $receta = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de recetas
