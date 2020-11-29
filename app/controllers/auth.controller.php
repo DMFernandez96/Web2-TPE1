@@ -20,7 +20,6 @@
 
 /* *******************  login  ******************** */
         function showLogin(){
-            /* $admin= $this->authHelper->isAdmin(); */
             $this->view->showFormLogin();
         }
 
@@ -110,5 +109,20 @@
 
             header("Location: " .BASE_URL. "adminUsuarios");
 
+        }
+
+        function deleteUsuario($id){
+            $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin =$this->authHelper->isAdmin();
+ 
+            $success= $this->model->remove($id);
+            
+            if($success){
+                header("Location: " .BASE_URL. "adminUsuarios");
+            }  
+            else{
+                $this->recetaView->printError("No se pudo eliminar el usuario", $admin);
+            }
         }
     }

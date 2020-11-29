@@ -6,7 +6,6 @@
     <base href="{BASE_URL}">
     <title>{$titulo_s|upper}</title>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC" rel="stylesheet">
-    {* <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'> *}
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">  
@@ -19,7 +18,7 @@
 </head>
 <body>
     <header> <!-- hacer barra de nav -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <a class="navbar-brand" href="home">Recipe Archive</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

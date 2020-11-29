@@ -59,6 +59,10 @@
             $controller= new CategoriaController();
             $controller->showCategoriasAdmin(); 
             break;
+        case 'adminUsuarios': //link dentro de admin para ABM de usuarios
+            $controller= new AuthController();
+            $controller->showUsuariosAdmin();
+            break;
 
         //RECETAS-- ADMIN
         case 'insertarReceta': //form de admin. boton agregar
@@ -100,7 +104,35 @@
             $controller= new CategoriaController();
             $id= $params[1];
             $controller->updateCategoria($id);
-        break;
+            break;
+
+        //USUARIO-- ADMIN
+        case 'addAdmin': // boton "hacer Admin" 
+            $controller= new AuthController();
+            $id= $params[1];
+            $controller->addAdmin($id);
+            break;
+        case 'eliminarAdmin': // btn "revocar permisos" 
+            $controller= new AuthController();
+            $id= $params[1];
+            $controller->deleteAdmin($id);
+            break;
+        case 'eliminarUsuario': // eliminarUsuario/:ID   boton eliminar
+            $controller= new AuthController();
+            $id= $params[1];
+            $controller->deleteUsuario($id);
+            break;
+
+        /* ********************************  USUARIOS  **************************************** */
+        case 'signUp': //muestra el form de registro
+            $controller= new AuthController();
+            $controller->showSignUp();
+            break;
+        case 'registrarse': //agrega usuario
+            $controller= new AuthController();
+            $controller->addUsuario(); //agrega usuario a la DB
+            break;
+
         default:
             header("HTTP/1.0 404 Not Found");  //en el router imprime un 404 en consola    
             echo('404 Page not found');

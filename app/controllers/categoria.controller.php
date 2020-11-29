@@ -38,23 +38,21 @@
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
             $admin= $this->authHelper->isAdmin();
-            /* if($admin){ */
-                $categorias= $this->model-> getAll();
-                $this->view->printAdminCategorias($categorias, $admin);
-            /* }else{
-                header("Location: " . BASE_URL. "home");
-            }  */  
+
+            $categorias= $this->model-> getAll();
+            $this->view->printAdminCategorias($categorias, $admin); 
         }
 
         function addCategoria(){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
 
             $nombre= $_POST['nombre'];
             $descripcion= $_POST['descripcion'];
 
             if (empty($nombre)){
-                $this->view->printError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios", $admin);
                 die();
             }
 
@@ -64,7 +62,7 @@
                 header("Location: " . BASE_URL. "adminCategorias");
             }  
             else { 
-                $this->view->printError("No pudo insertar la categoria");
+                $this->view->printError("No pudo insertar la categoria", $admin);
             }
 
         }
@@ -83,26 +81,22 @@
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
             $admin= $this->authHelper->isAdmin();
-            /* if($admin){ */
-                $categoria=$this->model->getCategoria($id);
-                $this->view->printFormEditarCategoria($categoria, $admin);
-            /* }else{
-                header("Location: " . BASE_URL. "home");
-            } */
-
             
+            $categoria=$this->model->getCategoria($id);
+            $this->view->printFormEditarCategoria($categoria, $admin);
         }
 
         function updateCategoria($id){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
+            $admin= $this->authHelper->isAdmin();
 
             $cat_id = $id;
             $nombre= $_POST['nombreActualizado'];
             $descripcion = $_POST['descripcionActualizado'];
 
             if (empty($nombre) || empty($cat_id)){
-                $this->view->printError("Faltan datos obligatorios");
+                $this->view->printError("Faltan datos obligatorios", $admin);
                 die();
             }
 

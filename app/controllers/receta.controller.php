@@ -34,13 +34,13 @@
             $detalles= $this->model->getDetalles($id);
             $admin= $this->authHelper->isAdmin();
 
-            $comentarios= $this->comentarioModel->getComentariosPorReceta($id);
+            $comentarios= $this->comentarioModel->getComentariosReceta($id);
 
             if($detalles) {
                 $this->view->printDetalles($detalles, $comentarios, $logueado, $admin);
             }
             else {
-                $this->view->printError("No existe la receta");
+                $this->view->printError("No existe la receta", $admin);
             }
         } 
 
@@ -82,7 +82,7 @@
                 $categoria = $_POST['categoria'];
             
                 if (empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categoria)){
-                    $this->view->printError("Faltan datos obligatorios");
+                    $this->view->printError("Faltan datos obligatorios", $admin);
                     die();
                 }  
 

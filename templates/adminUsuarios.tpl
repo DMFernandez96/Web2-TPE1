@@ -26,7 +26,7 @@
                             <a class='btn btn-primary btn-sm' href='eliminarAdmin/{$usuario->id}'>Revocar permisos</a> 
                         {/if}
                     </td>
-                    <td><a class='btn btn-danger btn-sm' href='eliminarusuario/{$usuario->id}'>ELIMINAR USUARIO</a></td>
+                    <td><a class='btn btn-danger btn-sm' href='eliminarUsuario/{$usuario->id}'>ELIMINAR USUARIO</a></td>
                     
                 </tr>
             {/foreach}
