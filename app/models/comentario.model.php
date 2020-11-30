@@ -30,12 +30,32 @@ class ComentarioModel{
     
     }
 
+    function getComentariosReceta($id){
+        $query= $this->db-> prepare ('SELECT comentario.*, usuario.mail FROM comentario INNER JOIN usuario ON (comentario.id_usuario=usuario.id) 
+            WHERE comentario.id_receta= ?');    
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ); 
+    }
+
     function insert($cuerpo, $puntaje, $id_receta, $id_usuario){
-        
         $query = $this->db->prepare('INSERT INTO comentario(cuerpo, puntuacion, id_receta, id_usuario) VALUES (?,?,?,?)');
         $query->execute([$cuerpo, $puntaje, $id_receta, $id_usuario]);
 
         return $this->db->lastInsertId();
+    }
+
+    function remove($id){
+        $query = $this->db->prepare('DELETE FROM comentario WHERE id = ?');
+        $query->execute([$id]);
+        return $query->rowCount();
+    }
+
+    function get($id){
+        $query = $this->db->prepare('SELECT * FROM comentario WHERE id=?'); 
+        $query->execute([$id]);
+        $c = $query->fetch(PDO::FETCH_OBJ); // un comentario
+
+      return $c;
     }
 
 
