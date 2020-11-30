@@ -35,17 +35,16 @@
            /*  header("Location: ". BASE_URL . "home"); */
         }
 
-         function isAdmin(){ 
-            /* session_start(); */
+        /*  function isAdmin(){ 
              if($_SESSION['ADMIN_USER'] == 1){ //Si es admin
                return true;
             }
             else{
                 return false;
             }
-        } 
+        }  */
 
-        /* function isAdmin(){
+        function isAdmin(){
             if(!isset($_SESSION['ADMIN_USER'])){ //Si no esta logueado
                return false;
             }
@@ -55,7 +54,7 @@
             else{ //no es admin
                 return false;
             }
-        } */
+        }
 
         function checkIsAdmin(){
             if($_SESSION['ADMIN_USER'] == 0){ //Si no es admin

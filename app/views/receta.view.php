@@ -15,7 +15,7 @@
             $this->smarty->display('./templates/error.tpl');    
         }
 /* *************************************************    HOME    ***************************************************** */
-        function printHome($recetas, $logueado, $admin){
+        function printHome($recetas, $logueado, $admin=null){
             $this->smarty->assign('titulo_s',"Recetas");
             $this->smarty->assign('recetas_s', $recetas);
             $this->smarty->assign('logueado_s', $logueado);
@@ -24,10 +24,9 @@
             $this->smarty->display('./templates/home.tpl'); 
         }
 
-        function printDetalles($detalles, $comentarios, $logueado, $admin){ 
+        function printDetalles($detalles, $logueado, $admin){ 
             $this->smarty->assign('titulo_s',"Detalles");
             $this->smarty->assign('receta_s', $detalles);
-            $this->smarty->assign('comentarios_s', $comentarios);
             $this->smarty->assign('idReceta_s', $detalles->id);
             $this->smarty->assign('logueado_s', $logueado);
             $this->smarty->assign('admin_s', $admin);

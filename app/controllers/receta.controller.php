@@ -24,8 +24,9 @@
         function showRecetas(){
             $recetas= $this->model-> getAll();
             $logueado= $this->authHelper->isLogueado();
-            $admin= $this->authHelper->isAdmin();
-
+            /* if($logueado){ */
+                $admin= $this->authHelper->isAdmin();
+            /* } */
             $this->view->printHome($recetas, $logueado, $admin);
         }
            
@@ -34,25 +35,14 @@
             $detalles= $this->model->getDetalles($id);
             $admin= $this->authHelper->isAdmin();
 
-            $comentarios= $this->comentarioModel->getComentariosReceta($id);
-
             if($detalles) {
-                $this->view->printDetalles($detalles, $comentarios, $logueado, $admin);
+                $this->view->printDetalles($detalles, $logueado, $admin);
             }
             else {
                 $this->view->printError("No existe la receta", $admin);
             }
         } 
 
-        /* function showComentarios($idProducto){
-            $comentarios= $this->comentarioModel->getComentariosPorReceta($idProducto);
-            if($comentarios){
-                $this->view->printDetalles($comentarios);
-            }else{
-                
-            }
-
-        } */
 
 /* ********************************************************* ADMIN  ******************************************************* */
 
@@ -118,16 +108,11 @@
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
             $admin= $this->authHelper->isAdmin();
-            /* if($admin){ */
-                $recetas= $this->model-> getAll();
-                $categorias=$this->categoriaModel->getAll();
-                //actualizo la vista
-                $this->view->printAdminRecetas($recetas, $categorias, $admin);
-           /*  }else{
-                header("Location: " . BASE_URL. "home");
-            } */
 
-                
+            $recetas= $this->model-> getAll();
+            $categorias=$this->categoriaModel->getAll();
+            //actualizo la vista
+            $this->view->printAdminRecetas($recetas, $categorias, $admin);    
         }
 
         /* -----------------   BORRAR RECETA  ------------------ */
@@ -146,16 +131,12 @@
             $this->authHelper->checkIsAdmin();
 
             $admin= $this->authHelper->isAdmin();
-            /* if($admin){ */
-                $receta=$this->model->getDetalles($id);
-                $categorias=$this->categoriaModel->getAll();
 
-                $this->view->printFormEditarReceta($receta, $categorias, $admin);
-            /* }else{
-                header("Location: " . BASE_URL. "home");
-            } */
+            $receta=$this->model->getDetalles($id);
+            $categorias=$this->categoriaModel->getAll();
 
-            
+            $this->view->printFormEditarReceta($receta, $categorias, $admin);
+
         }
 
         function updateReceta($id){
@@ -187,8 +168,14 @@
                 $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id);
             }
 
-            /* $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id); */
-
             header("Location: " .BASE_URL. "adminRecetas"); 
         }
+
+        /* function deleteImagen($idReceta){
+            $this->authHelper->checkLogueado();
+            $this->authHelper->checkIsAdmin();
+            $admin=$this->authHelper->isAdmin();
+            
+            $success= $this->model->deleteImg($idReceta);
+        } */
     }
