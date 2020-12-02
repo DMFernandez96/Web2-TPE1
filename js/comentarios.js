@@ -75,18 +75,4 @@ function iniciarPag() {
         }
     }
 
-    function borrar(id) {
-        fetch(`api/comentarios/${id}`, {
-            method: 'DELETE',
-            /* 'mode': 'cors', */
-        }).then(function(r) {
-            return r.json();
-        }).then(function(json) { // o .then((json)=>{...})
-            console.log("Se eliminó correctamente");
-            getComentariosReceta(idReceta);
-        }).catch((error) => {
-            console.log(error); //error de conexion
-        });
-    }
-
 }
