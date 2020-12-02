@@ -84,6 +84,11 @@
             $id= $params[1];
             $controller->updateReceta($id);
             break; 
+        case 'eliminarImgReceta':
+            $controller= new RecetaController();
+            $id= $params[1];
+            $controller->deleteImagen($id);
+            break;
 
         // CATEGORIA-- ADMIN
         case 'insertarCategoria': //boton agregar

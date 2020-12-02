@@ -43,6 +43,15 @@ class RecetaModel{
       return $detalles;
     }
 
+    function getImgReceta($id){
+      $query = $this->db->prepare('SELECT receta.imagen WHERE receta.id=?'); //en algun momento lo voy a hacer. el * quiere decir todas las columnas de la tabla (id, nombre, ingredientes, etc)
+      $query->execute([$id]);
+      $imagen = $query->fetch(PDO::FETCH_OBJ); // img de receta
+
+      return $imagen;
+
+    }
+
     function getRecetasFiltradas($idCategoria){ 
       $query = $this->database-> prepare('SELECT categoria.id, receta.id_categoria,receta.nombre FROM categoria INNER JOIN receta ON receta.id_categoria = categoria.id WHERE receta.id_categoria=?');
       $query->execute([$idCategoria]);
@@ -85,19 +94,30 @@ class RecetaModel{
   function update($nombre, $ing, $cal, $inst, $id_categ, $id, $img=null){
    /*  $query = $this->db->prepare("UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?");
     $query->execute([$nombre, $ing, $cal, $inst, $id_categ, $id]); */
-
     if($img){ //si existe
-      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ?, imagen =? WHERE id = ?';
-      $params = [$nombre, $ing, $cal, $inst, $id_categ, $img, $id];
+      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ?, imagen =? WHERE id = '.$id.' ';
+      $params = [$nombre, $ing, $cal, $inst, $id_categ, $img];
     } else{ //si no existe
-      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id = ?';
-      $params = [$nombre, $ing, $cal, $inst, $id_categ, $id];
+      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ? WHERE id ='.$id.' ';
+      $params = [$nombre, $ing, $cal, $inst, $id_categ];
     }
 
       // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
       $query = $this->db->prepare($sql);
       $result= $query->execute($params); 
-
       return $result;
   }
+
+  function deleteImg($nombre, $ing, $cal, $inst, $id_categ, $id, $img){
+
+     if($img){  //si existe
+      $img = null;
+      $sql = 'UPDATE receta SET nombre= ?, ingredientes= ?, calorias= ?, instrucciones= ?, id_categoria = ?, imagen = ? WHERE id='.$id.' ';
+      $params = [$nombre, $ing, $cal, $inst, $id_categ, $img];
+
+      $query =$this->db->prepare($sql);
+      return $query->execute($params);
+    }
+  }
+  
 }

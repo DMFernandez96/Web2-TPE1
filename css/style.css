@@ -45,3 +45,13 @@ h2 {
 p {
     line-height: 1.8;
 }
+
+.resaltado {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+.resaltadoNegativo {
+    background-color: #F95B5B;
+    font-weight: bold;
+}

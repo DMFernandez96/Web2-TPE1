@@ -3,7 +3,7 @@
 
 <div class="row">
     {include file="templates/form_alta_receta.tpl"}
-    <div class="col-6">
+    <div class="col-8">
         <h3> Recetas existentes</h3>
         <table class="table table-responsive">
             <thead class="thead-dark">
@@ -13,6 +13,7 @@
                     <th>Calorias</th>
                     <th>Eliminar</th>
                     <th>Editar</th>
+                    <th>Imagen</th>
                 </tr> 
             </thead>
             {foreach from=$recetas_s item=receta}  
@@ -21,7 +22,15 @@
                     <td>{$receta->categoria}</td>
                     <td>{$receta->calorias}</td>
                     <td><a class='btn btn-danger btn-sm' href='eliminarReceta/{$receta->id}'>ELIMINAR</a></td>
-                <td> <a class='btn btn-primary btn-sm' href='editarReceta/{$receta->id}'>Editar</a> </td> 
+                    <td> <a class='btn btn-primary btn-sm' href='editarReceta/{$receta->id}'>Editar</a> </td> 
+                     <td>
+                        {if $receta->imagen}
+                            <p class="resaltado text-center">SI</p>
+                        {else}
+                            <p class=" resaltadoNegativo text-center">NO</p>
+                        {/if}
+                    </td>
+                    
                 </tr>
             {/foreach}
         </table>

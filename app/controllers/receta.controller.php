@@ -133,6 +133,7 @@
             $admin= $this->authHelper->isAdmin();
 
             $receta=$this->model->getDetalles($id);
+
             $categorias=$this->categoriaModel->getAll();
 
             $this->view->printFormEditarReceta($receta, $categorias, $admin);
@@ -150,32 +151,51 @@
             $calorias = $_POST['caloriasActualizado'];
             $instrucciones = $_POST['instruccionesActualizado'];
             $categ = $_POST['categoriaActualizado'];
+        
 
             if (empty($rec_id) || empty($nombre) || empty($ingredientes) || empty($instrucciones) || empty($categ)){
                 $this->view->printError("Faltan datos obligatorios", $admin);
                 die();
             }
+    
+            // inserto la receta en la DB
+            if($_FILES['input_name']['type'] == "image/jpg" ||
+            $_FILES['input_name']['type'] == "image/jpeg" ||
+            $_FILES['input_name']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
+                $imgNombreReal= $this->uniqueSaveName($_FILES['input_name']['name'], //nombre real me aporta la extension del archivo
+                                                        $_FILES['input_name']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
 
-            if($_FILES['input_nameActualizado']['type'] == "image/jpg" ||
-                $_FILES['input_nameActualizado']['type'] == "image/jpeg" ||
-                $_FILES['input_nameActualizado']['type'] == "image/png"){ //si es alguno de estos formatos de imagen: (sino no lo hace)
-                    $imgNombreReal= $this->uniqueSaveName($_FILES['input_nameActualizado']['name'], //nombre real me aporta la extension del archivo
-                                                             $_FILES['input_nameActualizado']['tmp_name']); //da un nombre unico a partir de estos dos params (lo hace el sistema operativo)
-
-                    $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id, $imgNombreReal);
-                }
+                $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id, $imgNombreReal);
+            }
             else{
                 $success= $this->model->update($nombre, $ingredientes, $calorias, $instrucciones, $categ, $rec_id);
             }
-
-            header("Location: " .BASE_URL. "adminRecetas"); 
+                 // redirigimos al listado
+                if($success){
+                    header("Location: " . BASE_URL. "adminRecetas");
+                }  
+                else { 
+                    $this->view->printError("No pudo actualizar la receta", $admin);
+                }
+ 
         }
 
-        /* function deleteImagen($idReceta){
+        function deleteImagen($id){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
             $admin=$this->authHelper->isAdmin();
+
+            $receta= $this->model->getDetalles($id);
             
-            $success= $this->model->deleteImg($idReceta);
-        } */
+            $nombre= $receta->nombre;
+            $ing= $receta->ingredientes;
+            $cal= $receta->calorias;
+            $inst= $receta->instrucciones;
+            $categ= $receta->id_categoria;
+            $idReceta= $receta->id;
+            $img= $receta->imagen;
+
+            $this->model->deleteImg($nombre, $ing, $cal, $inst, $categ, $idReceta, $img);
+            header("Location: " .BASE_URL. "adminRecetas");
+        }
     }

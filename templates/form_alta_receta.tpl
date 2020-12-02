@@ -1,4 +1,4 @@
-<div class="formulario col-6">
+<div class="formulario col-4">
     <h1>Agregar receta</h1>
     <!-- formulario de alta de receta -->
     <form action="insertarReceta" method="POST" class="my-4" enctype="multipart/form-data">
