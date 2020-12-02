@@ -30,10 +30,6 @@
          
 </div>
 
-{* {if $logueado_s}
-    {include 'templates/form_alta_comentario.tpl'}
-{/if} *}
-
 {include 'templates/comentarios.tpl'}
 
 

@@ -43,6 +43,12 @@
             }
         } 
 
+        /* function showUsuario($idReceta){
+            $mail = $this->Comentariomodel->getComentariosReceta($idReceta);
+            $usuarioM= $mail->usuarioMail;
+            return $usuarioM;
+        } */
+
 
 /* ********************************************************* ADMIN  ******************************************************* */
 

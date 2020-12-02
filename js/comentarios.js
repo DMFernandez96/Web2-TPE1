@@ -30,10 +30,11 @@ function iniciarPag() {
     });
     let idReceta = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
     app.isAdmin = document.querySelector("#usuarioIsAdmin").value;
-
-    document.querySelector('#comentarios-form').addEventListener('submit', e => {
+    let form = document.querySelector('#comentarios-form');
+    form.addEventListener('submit', e => {
         e.preventDefault(); //que no me mande el form
         addComentario();
+        form.reset();
     });
     getComentariosReceta(idReceta);
 
@@ -68,7 +69,8 @@ function iniciarPag() {
 
             const r = await response.json();
             console.log(r);
-            app.comentarios.push(r);
+            /* app.comentarios.push(r); */
+            getComentariosReceta(idReceta);
 
         } catch (e) {
             console.log(e);

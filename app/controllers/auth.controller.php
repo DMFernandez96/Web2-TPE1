@@ -66,6 +66,13 @@
                 $this->view->showFormRegistro("Faltan datos obligatorios");
                 die();
             }
+            
+            $usuarioDB=$this->model->getPorMail($mail);
+
+            if($mail === $usuarioDB->mail){
+                $this->view->showFormRegistro("Ya existe un usuario registrado con ese email");
+                die();
+            }
             $hash= password_hash($password, PASSWORD_DEFAULT);
 
             //agrega usuario
