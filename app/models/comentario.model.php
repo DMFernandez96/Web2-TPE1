@@ -31,7 +31,7 @@ class ComentarioModel{
     }
 
     function getComentariosReceta($id){
-        $query= $this->db-> prepare ('SELECT comentario.*, usuario.mail FROM comentario INNER JOIN usuario ON (comentario.id_usuario=usuario.id) 
+        $query= $this->db-> prepare ('SELECT comentario.*, usuario.mail AS usuario FROM comentario INNER JOIN usuario ON (comentario.id_usuario=usuario.id) 
             WHERE comentario.id_receta= ?');    
         $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ); 

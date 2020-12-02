@@ -34,15 +34,20 @@
     </div>
 
     <div class="col-8">
+    {* <form action="buscar" method="POST">
+        <input id="inputBuscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" >
+        <button type="submit" class="btn btn-primary">Buscar!</button>
+     </form> *}
         <h3 class="text-center mt-2">Recetas</h3>
-            <table class="table table-responsive">
+        
+            <table class="table table-responsive" id="tabla">
                 <thead class="thead-dark">
                     <tr class="">
                         <th>nombre </th>
                         <th>categoria </th>
                         <th>calorias</th>
                         <th>Detalles</th>
-                    </tr> 
+                    </tr>
                 </thead>
                 <tbody>
                     {foreach from=$recetas_s item=receta}  
@@ -57,5 +62,6 @@
             </table>
         </div>
 </div>
+<script src="js/busquedaAvanzada.js"></script>
 {include file="footer.tpl"}
 

@@ -1,7 +1,5 @@
 "use strict"
 
-
-
 document.addEventListener("DOMContentLoaded", iniciarPag);
 
 function iniciarPag() {
