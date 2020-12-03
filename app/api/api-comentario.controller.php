@@ -22,14 +22,14 @@ class ApiComentarioController{
         return json_decode($this->data); //lee la variable data y la transforma
     }
 
-    public function getAll($params =null){ //buena practica, por mas q no usa $params
-        $parametros= []; //arr vacio que se va llenando si hay cosas en el GET
+    public function getAll($params =null){ 
+        $parametros= []; 
 
         if(isset($_GET['sort'])){ //si existe sort
             $parametros['sort'] = $_GET['sort'];
         }
 
-        if(isset($_GET['order'])){ //si existe sort
+        if(isset($_GET['order'])){ //si existe order
             $parametros['order'] = $_GET['order'];
         }
 
@@ -52,8 +52,7 @@ class ApiComentarioController{
 
         if($success > 0){
             $comentario = $this->model->get($success);
-            $this->view->response($comentario, 200); //devuelve el comentario ni bien lo inserta
-            /* $this->view->response("Se agrego comentario $success exitosamente", 200); */ 
+            $this->view->response($comentario, 200);  
         }else{
             $this->view->response("El comentario NO se pudo insertar", 500); 
         }

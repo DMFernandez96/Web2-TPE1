@@ -11,7 +11,6 @@
         function showFormLogin($error = null){ 
             $this->smarty->assign('titulo_s',"login");
             $this->smarty->assign('error_s', $error);
-           /*  $this->smarty->assign('admin_s', $admin); */
             $this->smarty->display("./templates/formLogin.tpl");
         }
 

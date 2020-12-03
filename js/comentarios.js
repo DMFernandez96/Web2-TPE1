@@ -30,22 +30,22 @@ function iniciarPag() {
     });
     let idReceta = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
     app.isAdmin = document.querySelector("#usuarioIsAdmin").value;
+
     let form = document.querySelector('#comentarios-form');
     form.addEventListener('submit', e => {
         e.preventDefault(); //que no me mande el form
         addComentario();
         form.reset();
     });
+
     getComentariosReceta(idReceta);
 
     async function getComentariosReceta(idReceta) {
         try {
-            //buena practica si no se modif en toda la ejecucion hacer constante la variable.
-            const response = await fetch(`api/comentarios/${idReceta}`); //devuelve un obj de js q da mas info de la rta.(nos sirve como desarrolladores)
+            const response = await fetch(`api/comentarios/${idReceta}`);
 
             const comentarios = await response.json(); //la api devuelve JSON
 
-            //imprimo los comentarios
             app.comentarios = comentarios;
         } catch (e) {
             console.log(e);
@@ -69,7 +69,6 @@ function iniciarPag() {
 
             const r = await response.json();
             console.log(r);
-            /* app.comentarios.push(r); */
             getComentariosReceta(idReceta);
 
         } catch (e) {

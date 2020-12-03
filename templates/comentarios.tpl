@@ -1,4 +1,3 @@
-{* <div class="row"> *}
 
   <h2 class="mb-4"> ¿Qué te pareció la receta? </h3>
         <form id="comentarios-form" action="" method="POST">
@@ -36,5 +35,3 @@
     <div>
         {include file="vue/comentarios.vue"}
     </div>
-
-{* </div> *}

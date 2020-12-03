@@ -32,7 +32,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="categorias">Categorias</a>
                     </li>
-                    {if !isset($smarty.session.EMAIL_USER)} {* si no esta abierta una session me aparece *}
+                    {if !isset($smarty.session.EMAIL_USER)} {* si no esta abierta una session aparece *}
                         <li class="nav-item active">
                             <a class="nav-link" href="signUp">Registrarse</a>
                         </li>

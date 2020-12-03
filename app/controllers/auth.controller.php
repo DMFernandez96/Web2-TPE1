@@ -18,7 +18,7 @@
         }
 /* *****************************************  PUBLICO  ************************************************************** */
 
-/* *******************  login  ******************** */
+/* *******************  LOGIN  ******************** */
         function showLogin(){
             $this->view->showFormLogin();
         }
@@ -48,12 +48,12 @@
                 $this->view->showFormLogin("Credenciales invalidas");  
             }
         } 
-
+/* ********************    LOGOUT    ***************************** */
         function logout(){
             $this->authHelper->logout();
         }
 
-        /* *****************   registrarse  ************** */
+/* ***********************     REGISTRARSE    *********************** */
         function showSignUp(){
             $this->view->showFormRegistro();
         }
@@ -62,13 +62,14 @@
             $mail= $_POST['mail'];
             $password= $_POST['password'];
 
+            $admin =$this->authHelper->isAdmin();
+
             if(empty($mail) || empty($password)){
                 $this->view->showFormRegistro("Faltan datos obligatorios");
                 die();
             }
             
             $usuarioDB=$this->model->getPorMail($mail);
-
             if($mail === $usuarioDB->mail){
                 $this->view->showFormRegistro("Ya existe un usuario registrado con ese email");
                 die();
@@ -81,9 +82,11 @@
                 $usuario = $this->model->getPorMail($mail);
                 $this->authHelper->login($usuario);
                 header("Location: " .BASE_URL. "home");
-            } 
+            } else{
+                $this->recetaView->printError("No se pudo agregar el usuario", $admin);
+            }
         }
-/* *****************************************    ADMIN    ****************************************************** */
+/* **************************************************    ADMIN      *********************************************************** */
 
         function showUsuariosAdmin(){
             $this->authHelper->checkLogueado();
@@ -97,27 +100,38 @@
 
         }
 
+/* ***********************   PERMISOS DE ADMINISTRACION  ********************* */
         function addAdmin($id){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
+            $isAdmin =$this->authHelper->isAdmin();
 
             $admin = 1;
-            $this->model->addAdministrador($admin, $id);
-
-            header("Location: " .BASE_URL. "adminUsuarios"); 
+            $success= $this->model->addAdministrador($admin, $id);
+            if($success){
+                header("Location: " .BASE_URL. "adminUsuarios");
+            } else{
+                $this->recetaView->printError("No se pudo agregar admin", $isAdmin);
+            }
         }
 
         function deleteAdmin($id){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();
+            $isAdmin =$this->authHelper->isAdmin();
 
             $admin = 0;
-            $this->model->removeAdmin($admin, $id);
-
-            header("Location: " .BASE_URL. "adminUsuarios");
-
+            $success= $this->model->removeAdmin($admin, $id);
+            if($success){
+                header("Location: " .BASE_URL. "adminUsuarios");
+            }
+            else{
+                $this->recetaView->printError("No se pudo agregar admin", $isAdmin);
+            }
         }
 
+
+/* ***********************   USUARIO - DELETE   ************************* */
         function deleteUsuario($id){
             $this->authHelper->checkLogueado();
             $this->authHelper->checkIsAdmin();

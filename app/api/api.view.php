@@ -3,8 +3,7 @@
 //generica a toda la api, a todos los recursos. 
     class APIView{
 
-        public function response($data, $status){ // $data es lo que le pasamos para q muestre
-            //con $status le indicamos con que codigo se muestra (200, 404,etc)
+        public function response($data, $status){ 
 
             header("Content-Type: application/json"); //le digo que va en formato json
             header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));  //setea el codigo de respuesta
@@ -13,8 +12,7 @@
             echo json_encode($data); //convierto el arr en json
         }
 
-        private function _requestStatus($code){ //funcion de traduccion
-            //especie de diccionario
+        private function _requestStatus($code){ 
             $status = array(
                 200 => "OK",
                 404 => "Not found",

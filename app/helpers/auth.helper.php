@@ -32,26 +32,17 @@
             $_SESSION['ID_USER'] = $usuario->id;
             $_SESSION['EMAIL_USER'] = $usuario->mail;
             $_SESSION['ADMIN_USER'] =$usuario->administrador;
-           /*  header("Location: ". BASE_URL . "home"); */
         }
 
-        /*  function isAdmin(){ 
-             if($_SESSION['ADMIN_USER'] == 1){ //Si es admin
-               return true;
-            }
-            else{
-                return false;
-            }
-        }  */
 
         function isAdmin(){
-            if(!isset($_SESSION['ADMIN_USER'])){ //Si no esta logueado
+            if(!isset($_SESSION['ADMIN_USER'])){ 
                return false;
             }
-            else if($_SESSION['ADMIN_USER'] == 1){ //es admin
+            else if($_SESSION['ADMIN_USER'] == 1){ 
                 return true;
             }
-            else{ //no es admin
+            else{ 
                 return false;
             }
         }
