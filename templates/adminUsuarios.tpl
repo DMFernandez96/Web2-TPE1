@@ -15,22 +15,24 @@
                     </tr> 
                 </thead>
                 {foreach from=$usuarios_s item=usuario}  
-                    <tr class="bg-light">
-                        <td class="text-center">{$usuario->mail}</td>
-                        {if $usuario->administrador == 1} 
-                            <td class="text-center"> Si </td>
-                        {else}
-                            <td class="text-center"> No </td>
-                        {/if}
-                        <td>
-                            {if $usuario->administrador == 0}
-                                <a class='btn btn-primary btn-sm center' href='addAdmin/{$usuario->id}'>Hacer Admin</a>  
+                    {if $usuario->mail !== $smarty.session.EMAIL_USER}
+                        <tr class="bg-light">
+                            <td>{$usuario->mail}</td>
+                            {if $usuario->administrador == 1} 
+                                <td class="text-center"> Si </td>
                             {else}
-                                <a class='btn btn-primary btn-sm center' href='eliminarAdmin/{$usuario->id}'>Revocar permisos</a> 
+                                <td class="text-center"> No </td>
                             {/if}
-                        </td>
-                        <td><a class='btn btn-danger btn-sm text-center' href='eliminarUsuario/{$usuario->id}'>ELIMINAR USUARIO</a></td>
-                    </tr>
+                            <td>
+                                {if $usuario->administrador == 0}
+                                    <a class='btn btn-primary btn-sm center' href='addAdmin/{$usuario->id}'>Hacer Admin</a>  
+                                {else}
+                                    <a class='btn btn-primary btn-sm center' href='eliminarAdmin/{$usuario->id}'>Revocar permisos</a> 
+                                {/if}
+                            </td>
+                            <td><a class='btn btn-danger btn-sm text-center' href='eliminarUsuario/{$usuario->id}'>ELIMINAR USUARIO</a></td>
+                        </tr>
+                    {/if}
                 {/foreach}
             </table>
         </div>
